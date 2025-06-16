@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elmh的赛博空间</title>
+    <!-- 修复字体链接引号 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff9d;
+            --neon-pink: #ff003c;
+            --matrix-green: #0f0;
+            --matrix-fade: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: var(--neon-green);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                linear-gradient(0deg, 
+                    rgba(255, 0, 212, 0.1) 1px, 
+                    transparent 1px),
+                linear-gradient(90deg, 
+                    rgba(255, 0, 212, 0.1) 1px, 
+                    transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            height: 80vh;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3),
+                        inset 0 0 20px rgba(0, 255, 157, 0.2);
+            position: relative;
+            overflow: auto;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(
+                45deg,
+                var(--neon-green) 0%,
+                var(--neon-pink) 50%,
+                var(--neon-green) 100%
+            );
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        @keyframes titleGlitch {
+            0% { text-shadow: 3px 0 var(--neon-pink), -3px 0 var(--neon-green); }
+            2% { text-shadow: -3px 0 var(--neon-pink), 3px 0 var(--neon-green); }
+            4% { text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-green); }
+            6% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-green); }
+            8%, 100% { text-shadow: none; }
+        }
+
+        #name {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlitch 2s infinite;
+            position: relative;
+        }
+
+        .label {
+            display: block;
+            margin: 15px auto;
+            padding: 10px 30px;
+            width: fit-content;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--neon-green);
+            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+            animation: labelScan 3s infinite;
+        }
+
+        @keyframes labelScan {
+            0% { box-shadow: 0 0 10px var(--neon-green); }
+            50% { box-shadow: 0 0 30px var(--neon-green); }
+            100% { box-shadow: 0 0 10px var(--neon-green); }
+        }
+
+        a {
+            display: inline-block;
+            margin: 15px;
+            padding: 12px 25px;
+            color: #000;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-pink));
+            border: none;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+        }
+
+        a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid var(--neon-green);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .cyber-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--neon-green);
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .cyber-spinner::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 4px solid var(--neon-pink);
+            border-top-color: transparent;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-line {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: lineAppear 0.8s forwards;
+        }
+
+        @keyframes lineAppear {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 修复扫描线定位 */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                var(--neon-green) 50%,
+                transparent 100%
+            );
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <div class="loading" id="loading">
+        <div class="cyber-spinner"></div>
+    </div>
+
+    <div class="container" id="content" style="display: none;">
+        <div id="name">ELMH//个人终端</div>
+
+        <span class="label">> 图形学协议已加载</span>
+        <span class="label">> 战斗模块在线</span>
+        <span class="label">> UE5引擎启动</span>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <h1 style="color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink);">
+                "你会动笔就会画画？你会Max就会建模？"
+            </h1>
+        </div>
+
+        <div id="info" style="position: relative; overflow: hidden;">
+            <div class="scan-line"></div>
+            <p class="info-line">> 用户身份验证通过</p>
+            <p class="info-line">> 隶属组织：SolariiX建模部</p>
+            <p class="info-line">> 目标路径：技术美术(TA)</p>
+            <p class="info-line">> 通信协议激活：</p>
+            <a class="info-line" href="mailto:1303285187@qq.com">[发送加密邮件]</a>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="https://solariix.com/">[访问SolariiX主站]</a>
+            <a href="https://space.bilibili.com/1636983604">[B站频道]</a>
+            <a href="https://account.solariix.com/">[登录管理系统]</a>
+        </div>
+    </div>
+
+    <footer>
+        SYSTEM VERSION 2077.6.18 | COPYRIGHT © ELMH CYBER SYSTEM
+    </footer>
+
+    <script>
+        // 数字雨效果
+        function initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+[]{}|;:,.<>?';
+            const drops = Array(Math.floor(canvas.width / 20)).fill(0);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-green');
+                ctx.font = '16px monospace';
+
+                drops.forEach((y, i) => {
+                    const x = i * 20;
+                    ctx.fillText(
+                        chars[Math.floor(Math.random() * chars.length)],
+                        x,
+                        y
+                    );
+                    if (y > canvas.height && Math.random() > 0.98) drops[i] = 0;
+                    drops[i] += 10;
+                });
+            }
+
+            setInterval(draw, 40);
+        }
+
+        // 统一加载事件
+        window.onload = function() {
+            document.getElementById('loading').style.display = 'flex';
+            
+            try {
+                initMatrix();
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    const content = document.getElementById('content');
+                    content.style.display = 'block';
+                    
+                    // 逐行显示
+                    const lines = document.querySelectorAll('.info-line');
+                    lines.forEach((line, index) => {
+                        setTimeout(() => {
+                            line.style.animation = `lineAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.3}s forwards`;
+                            if(Math.random() > 0.5) {
+                                line.style.textShadow = `2px 0 ${getComputedStyle(document.documentElement).getPropertyValue('--neon-pink')}`;
+                                setTimeout(() => line.style.textShadow = '', 50);
+                            }
+                        }, index * 500);
+                    });
+                }, 2000);
+            } catch (e) {
+                console.error('初始化错误:', e);
+                document.getElementById('content').style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>
