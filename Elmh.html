@@ -124,7 +124,6 @@
             cursor: zoom-in;
             transition: transform 0.3s ease;
         }
-
         .oc-image:hover {
             transform: scale(1.05);
         }
@@ -203,6 +202,10 @@
             background: rgba(0,0,0,0.9);
             z-index: 9999;
             transition: opacity 0.5s ease;
+            /* 新增居中属性 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .loader {
@@ -330,111 +333,3 @@
         </div>
         
         <div class="section">
-            <h2 class="section-title">OC/自设</h2>
-            <div class="oc-container">
-                <a href="oc.png" target="_blank">
-                    <img class="oc-image clickable-img" src="OC.png" alt="Elm Hedmukh（埃尔姆赫德姆赫）" onclick="openImageModal(event, this.src)">
-                </a>OC
-                <div>Elm Hedmukh（埃尔姆赫德姆赫）</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">我的作品</h2>
-            <div class="project">
-                Horror Game<br>
-                一个基于虚幻引擎的恐怖游戏
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">联系方式</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>邮箱：</span>
-                    <a href="mailto:1303285187@qq.com">1303285187@qq.com</a>
-                </div>
-                <div class="contact-item">
-                    <span>QQ：</span>
-                    <a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a>
-                </div>
-                <div class="contact-item">
-                    <span>抖音：</span>
-                    <a href="https://v.douyin.com/8nRWBoQ378Q/">93714100218（被永久封禁，能解开有偿）</a>
-                </div>
-            </div>
-        </div>
-        
-        <h3 class="payment-title">赛博乞讨</h3>
-        <div class="payment-methods">
-            <div class="payment-method">
-                <a href="微信.jpg" target="_blank">
-                    <img src="微信.jpg" alt="微信支付" class="clickable-img" onclick="openImageModal(event, this.src)">
-                </a>
-                <div class="payment-label">微信支付</div>
-            </div>
-            <div class="payment-method">
-                <a href="支付宝.jpg" target="_blank">
-                    <img src="支付宝.jpg" alt="支付宝" class="clickable-img" onclick="openImageModal(event, this.src)">
-                </a>
-                <div class="payment-label">支付宝</div>
-            </div>
-        </div>
-        
-        <!-- 新增模态框 -->
-        <div id="imageModal" class="image-modal" onclick="closeImageModal()">
-            <img class="modal-content" id="modalImage">
-        </div>
-    </div>
-
-    <script>
-        // 新增JavaScript函数
-        function openImageModal(event, imgSrc) {
-            event.preventDefault(); // 阻止默认的a标签跳转
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modal.style.display = "flex";
-            modalImg.src = imgSrc;
-        }
-
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = "none";
-        }
-
-        // 检测页面加载时间
-        window.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const startTime = performance.now();
-
-            // 检测资源加载完成时间
-            window.addEventListener('load', function() {
-                const endTime = performance.now();
-                const loadTime = endTime - startTime;
-
-                // 如果加载时间超过某个阈值（例如2秒），则显示加载动画
-                if (loadTime > 2000) {
-                    loader.style.display = 'flex';
-                    setTimeout(() => {
-                        loader.style.opacity = '1';
-                    }, 50);
-                } else {
-                    loader.style.display = 'none';
-                }
-
-                // 触发现有元素入场动画
-                setTimeout(() => {
-                    document.querySelectorAll('[style*="animation"]').forEach(el => {
-                        el.style.animationPlayState = 'running';
-                    });
-                }, Math.max(0, 2000 - loadTime) + 500); // 确保动画在加载后延迟显示
-            });
-        });
-
-        // 防止加载期间误操作
-        document.getElementById('loader').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-    </script>
-</body>
-</html>
