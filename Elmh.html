@@ -1,350 +1,440 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elmh的赛博空间</title>
-    <!-- 修复字体链接引号 -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>Elmh的个人网页</title>
     <style>
-        :root {
-            --neon-green: #00ff9d;
-            --neon-pink: #ff003c;
-            --matrix-green: #0f0;
-            --matrix-fade: rgba(0, 0, 0, 0.05);
-        }
-
-        body {
-            font-family: 'Orbitron', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: #000;
-            color: var(--neon-green);
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Microsoft YaHei', sans-serif;
+            color: #fff;
             line-height: 1.6;
-            overflow-x: hidden;
+            padding: 20px;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .photo {
             position: relative;
+            margin: 0 auto 20px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 0.2s;
+        }
+        
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保持裁剪 */
+        }
+        
+        .name {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 0.4s;
+        }
+        
+        .tags-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 0.6s;
+        }
+        
+        .tag {
+            font-size: 18px;
+            padding: 5px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
         }
 
-        #matrix-canvas {
+        .tag:hover {
+            transform: scale(1.05);
+        }
+        
+        .section {
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 0.8s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .self-introduction {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .oc-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .oc-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain; /* 保持比例完整显示 */
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2); /* 添加背景色提升识别度 */
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .oc-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .project {
+            font-size: 18px;
+            padding: 10px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+        }
+        
+        .contact-item a {
+            color: #a0d8ff;
+            text-decoration: none;
+        }
+        
+        .payment-title {
+            font-size: 20px;
+            margin: 20px 0 10px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 1s;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .payment-method img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain; /* 保持原比例完整显示 */
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .payment-method img:hover {
+            transform: scale(1.05);
+        }
+        
+        .payment-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        /* 新增加载动画样式 */
+        .loader-container {
+            display: none; /* 默认隐藏 */
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -2;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: 
-                linear-gradient(0deg, 
-                    rgba(255, 0, 212, 0.1) 1px, 
-                    transparent 1px),
-                linear-gradient(90deg, 
-                    rgba(255, 0, 212, 0.1) 1px, 
-                    transparent 1px);
-            background-size: 20px 20px;
-            z-index: -1;
-            opacity: 0.3;
-            pointer-events: none;
+        .loader {
+            text-align: center;
         }
 
-        .container {
-            max-width: 900px;
-            height: 80vh;
-            margin: 50px auto;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3),
-                        inset 0 0 20px rgba(0, 255, 157, 0.2);
-            position: relative;
-            overflow: auto;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 1s ease-out forwards;
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.2);
+            border-top-color: #a0d8ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
 
-        .container::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(
-                45deg,
-                var(--neon-green) 0%,
-                var(--neon-pink) 50%,
-                var(--neon-green) 100%
-            );
-            z-index: -1;
-            animation: borderGlow 3s linear infinite;
-            opacity: 0.3;
+        .loader-text {
+            color: #a0d8ff;
+            font-size: 18px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .loader-circle {
+                width: 40px;
+                height: 40px;
+                border-width: 4px;
+            }
+            .loader-text {
+                font-size: 16px;
+            }
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .tags-container {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @keyframes borderGlow {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-            100% { opacity: 0.3; }
+        /* 为所有可点击图片添加手型指针 */
+        .clickable-img {
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes titleGlitch {
-            0% { text-shadow: 3px 0 var(--neon-pink), -3px 0 var(--neon-green); }
-            2% { text-shadow: -3px 0 var(--neon-pink), 3px 0 var(--neon-green); }
-            4% { text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-green); }
-            6% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-green); }
-            8%, 100% { text-shadow: none; }
+        .clickable-img:hover {
+            transform: scale(1.05);
         }
 
-        #name {
-            font-size: 3em;
-            text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGlitch 2s infinite;
-            position: relative;
-        }
-
-        .label {
-            display: block;
-            margin: 15px auto;
-            padding: 10px 30px;
-            width: fit-content;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--neon-green);
-            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-            animation: labelScan 3s infinite;
-        }
-
-        @keyframes labelScan {
-            0% { box-shadow: 0 0 10px var(--neon-green); }
-            50% { box-shadow: 0 0 30px var(--neon-green); }
-            100% { box-shadow: 0 0 10px var(--neon-green); }
-        }
-
-        a {
-            display: inline-block;
-            margin: 15px;
-            padding: 12px 25px;
-            color: #000;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-pink));
-            border: none;
-            border-radius: 0;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-        }
-
-        a:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px var(--neon-green);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            border-top: 1px solid var(--neon-green);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .loading {
+        /* 新增模态框样式 */
+        .image-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            cursor: zoom-out;
         }
 
-        .cyber-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--neon-green);
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-            position: relative;
-        }
-
-        .cyber-spinner::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border: 4px solid var(--neon-pink);
-            border-top-color: transparent;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .info-line {
-            opacity: 0;
-            transform: translateX(50px);
-            animation: lineAppear 0.8s forwards;
-        }
-
-        @keyframes lineAppear {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* 修复扫描线定位 */
-        .scan-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(
-                to right,
-                transparent 0%,
-                var(--neon-green) 50%,
-                transparent 100%
-            );
-            animation: scan 3s infinite;
-        }
-
-        @keyframes scan {
-            0% { top: 0; opacity: 0; }
-            50% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    
-    <div class="loading" id="loading">
-        <div class="cyber-spinner"></div>
-    </div>
-
-    <div class="container" id="content" style="display: none;">
-        <div id="name">ELMH//个人终端</div>
-
-        <span class="label">> 图形学协议已加载</span>
-        <span class="label">> 战斗模块在线</span>
-        <span class="label">> UE5引擎启动</span>
-
-        <div style="text-align: center; margin: 30px 0;">
-            <h1 style="color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink);">
-                "你会动笔就会画画？你会Max就会建模？"
-            </h1>
-        </div>
-
-        <div id="info" style="position: relative; overflow: hidden;">
-            <div class="scan-line"></div>
-            <p class="info-line">> 用户身份验证通过</p>
-            <p class="info-line">> 隶属组织：SolariiX建模部</p>
-            <p class="info-line">> 目标路径：技术美术(TA)</p>
-            <p class="info-line">> 通信协议激活：</p>
-            <a class="info-line" href="mailto:1303285187@qq.com">[发送加密邮件]</a>
-        </div>
-
-        <div style="text-align: center; margin: 40px 0;">
-            <a href="https://solariix.com/">[访问SolariiX主站]</a>
-            <a href="https://space.bilibili.com/1636983604">[B站频道]</a>
-            <a href="https://account.solariix.com/">[登录管理系统]</a>
+    <!-- 新增加载动画 -->
+    <div class="loader-container" id="loader">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">正在加载中...</div>
         </div>
     </div>
 
-    <footer>
-        SYSTEM VERSION 2077.6.18 | COPYRIGHT © ELMH CYBER SYSTEM
-    </footer>
+    <div class="content-container">
+        <!-- 修改所有图片为链接形式 -->
+        <div class="photo">
+            <a href="个人图片.jpg" target="_blank">
+                <img src="个人图片.jpg" alt="Elmh的个人照片" class="clickable-img" onclick="openImageModal(event, this.src)">
+            </a>
+        </div>
+        
+        <h1 class="name">Elmh</h1>
+        
+        <div class="tags-container">
+            <div class="tag">虚幻引擎使用者</div>
+            <div class="tag">3dmax使用者</div>
+            <div class="tag">格斗爱好者</div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">关于我</h2>
+            <div class="self-introduction">
+                我是Elmh<br>
+                是SolariiX的合作伙伴<br>
+                一名IT爱好者
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">OC/自设</h2>
+            <div class="oc-container">
+                <a href="oc.png" target="_blank">
+                    <img class="oc-image clickable-img" src="oc.png" alt="Elm Hedmukh（埃尔姆赫德姆赫）" onclick="openImageModal(event, this.src)">
+                </a>
+                <div>Elm Hedmukh（埃尔姆赫德姆赫）</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">我的作品</h2>
+            <div class="project">
+                Horror Game<br>
+                一个基于虚幻引擎的恐怖游戏
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">联系方式</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>邮箱：</span>
+                    <a href="mailto:1303285187@qq.com">1303285187@qq.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>QQ：</span>
+                    <a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a>
+                </div>
+                <div class="contact-item">
+                    <span>抖音：</span>
+                    <a href="https://v.douyin.com/8nRWBoQ378Q/">93714100218（被永久封禁，能解开有偿）</a>
+                </div>
+            </div>
+        </div>
+        
+        <h3 class="payment-title">赛博乞讨</h3>
+        <div class="payment-methods">
+            <div class="payment-method">
+                <a href="微信.jpg" target="_blank">
+                    <img src="微信.jpg" alt="微信支付" class="clickable-img" onclick="openImageModal(event, this.src)">
+                </a>
+                <div class="payment-label">微信支付</div>
+            </div>
+            <div class="payment-method">
+                <a href="支付宝.jpg" target="_blank">
+                    <img src="支付宝.jpg" alt="支付宝" class="clickable-img" onclick="openImageModal(event, this.src)">
+                </a>
+                <div class="payment-label">支付宝</div>
+            </div>
+        </div>
+        
+        <!-- 新增模态框 -->
+        <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+            <img class="modal-content" id="modalImage">
+        </div>
+    </div>
 
     <script>
-        // 数字雨效果
-        function initMatrix() {
-            const canvas = document.getElementById('matrix-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+[]{}|;:,.<>?';
-            const drops = Array(Math.floor(canvas.width / 20)).fill(0);
-
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-green');
-                ctx.font = '16px monospace';
-
-                drops.forEach((y, i) => {
-                    const x = i * 20;
-                    ctx.fillText(
-                        chars[Math.floor(Math.random() * chars.length)],
-                        x,
-                        y
-                    );
-                    if (y > canvas.height && Math.random() > 0.98) drops[i] = 0;
-                    drops[i] += 10;
-                });
-            }
-
-            setInterval(draw, 40);
+        // 新增JavaScript函数
+        function openImageModal(event, imgSrc) {
+            event.preventDefault(); // 阻止默认的a标签跳转
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = "flex";
+            modalImg.src = imgSrc;
         }
 
-        // 统一加载事件
-        window.onload = function() {
-            document.getElementById('loading').style.display = 'flex';
-            
-            try {
-                initMatrix();
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+
+        // 检测页面加载时间
+        window.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const startTime = performance.now();
+
+            // 检测资源加载完成时间
+            window.addEventListener('load', function() {
+                const endTime = performance.now();
+                const loadTime = endTime - startTime;
+
+                // 如果加载时间超过某个阈值（例如2秒），则显示加载动画
+                if (loadTime > 2000) {
+                    loader.style.display = 'flex';
+                    setTimeout(() => {
+                        loader.style.opacity = '1';
+                    }, 50);
+                } else {
+                    loader.style.display = 'none';
+                }
+
+                // 触发现有元素入场动画
                 setTimeout(() => {
-                    document.getElementById('loading').style.display = 'none';
-                    const content = document.getElementById('content');
-                    content.style.display = 'block';
-                    
-                    // 逐行显示
-                    const lines = document.querySelectorAll('.info-line');
-                    lines.forEach((line, index) => {
-                        setTimeout(() => {
-                            line.style.animation = `lineAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.3}s forwards`;
-                            if(Math.random() > 0.5) {
-                                line.style.textShadow = `2px 0 ${getComputedStyle(document.documentElement).getPropertyValue('--neon-pink')}`;
-                                setTimeout(() => line.style.textShadow = '', 50);
-                            }
-                        }, index * 500);
+                    document.querySelectorAll('[style*="animation"]').forEach(el => {
+                        el.style.animationPlayState = 'running';
                     });
-                }, 2000);
-            } catch (e) {
-                console.error('初始化错误:', e);
-                document.getElementById('content').style.display = 'block';
-            }
-        };
+                }, Math.max(0, 2000 - loadTime) + 500); // 确保动画在加载后延迟显示
+            });
+        });
+
+        // 防止加载期间误操作
+        document.getElementById('loader').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
     </script>
 </body>
 </html>
