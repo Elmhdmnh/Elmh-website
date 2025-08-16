@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elmh的个人网页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -144,11 +145,11 @@
         
         .contact-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             font-size: 16px;
             width: 100%;
+            justify-content: center;
         }
         
         .contact-item a {
@@ -157,6 +158,11 @@
             word-break: break-all;
             text-align: center;
             padding: 5px;
+        }
+        
+        .contact-item i {
+            font-size: 18px;
+            color: #a0d8ff;
         }
         
         .payment-title {
@@ -195,6 +201,13 @@
         .payment-label {
             margin-top: 5px;
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .payment-label i {
+            color: #a0d8ff;
         }
         
         .loader-container {
@@ -284,117 +297,14 @@
             transition: transform 0.3s ease;
         }
 
-        /* 移动端优化 - 保留原始背景 */
+        /* 移动端优化 */
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-                background-attachment: scroll;
-            }
-            
-            .content-container {
-                padding: 10px;
-            }
-            
-            .photo {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .name {
-                font-size: 28px;
-            }
-            
-            .tag {
-                font-size: 14px;
-                padding: 4px 10px;
-            }
-            
-            .section {
-                margin: 15px 0;
-                padding: 12px;
-            }
-            
-            .section-title {
-                font-size: 20px;
-            }
-            
-            .self-introduction {
-                font-size: 15px;
-            }
-            
-            .oc-image {
-                width: 110px;
-                height: 110px;
-            }
-            
-            .project {
-                font-size: 15px;
-            }
-            
             .contact-item {
                 font-size: 15px;
             }
-            
-            .payment-title {
-                font-size: 16px;
-            }
-            
             .payment-methods {
                 flex-direction: column;
                 align-items: center;
-                gap: 15px;
-            }
-            
-            .tags-container {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .loader-circle {
-                width: 35px;
-                height: 35px;
-                border-width: 3px;
-            }
-            
-            .loader-text {
-                font-size: 14px;
-            }
-            
-            .contact-item a {
-                font-size: 14px;
-            }
-            
-            .payment-method img {
-                width: 140px;
-                height: 140px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .name {
-                font-size: 24px;
-            }
-            
-            .tag {
-                font-size: 13px;
-            }
-            
-            .section-title {
-                font-size: 18px;
-            }
-            
-            .self-introduction {
-                font-size: 14px;
-            }
-            
-            .payment-method img {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .contact-item a {
-                font-size: 13px;
             }
         }
     </style>
@@ -453,15 +363,15 @@
             <h2 class="section-title">联系方式</h2>
             <div class="contact-info">
                 <div class="contact-item">
-                    <span>邮箱：</span>
+                    <i class="fa-solid fa-envelope"></i>
                     <a href="mailto:1303285187@qq.com">1303285187@qq.com</a>
                 </div>
                 <div class="contact-item">
-                    <span>QQ：</span>
+                    <i class="fa-brands fa-qq"></i>
                     <a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a>
                 </div>
                 <div class="contact-item">
-                    <span>抖音：</span>
+                    <i class="fa-brands fa-tiktok"></i>
                     <a href="https://v.douyin.com/8nRWBoQ378Q/">93714100218（被永久封禁，能解开有偿）</a>
                 </div>
             </div>
@@ -473,13 +383,13 @@
                 <a href="微信.jpg" target="_blank">
                     <img src="微信.jpg" alt="微信支付" class="clickable-img" onclick="openImageModal(event, this.src)">
                 </a>
-                <div class="payment-label">微信支付</div>
+                <div class="payment-label"><i class="fa-brands fa-weixin"></i> 微信支付</div>
             </div>
             <div class="payment-method">
                 <a href="支付宝.jpg" target="_blank">
                     <img src="支付宝.jpg" alt="支付宝" class="clickable-img" onclick="openImageModal(event, this.src)">
                 </a>
-                <div class="payment-label">支付宝</div>
+                <div class="payment-label"><i class="fa-brands fa-alipay"></i> 支付宝</div>
             </div>
         </div>
         
@@ -500,39 +410,6 @@
         function closeImageModal() {
             document.getElementById('imageModal').style.display = "none";
         }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const startTime = performance.now();
-
-            window.addEventListener('load', function() {
-                const endTime = performance.now();
-                const loadTime = endTime - startTime;
-
-                if (loadTime > 2000) {
-                    loader.style.display = 'flex';
-                    setTimeout(() => {
-                        loader.style.opacity = '1';
-                    }, 50);
-                } else {
-                    loader.style.display = 'none';
-                }
-
-                setTimeout(() => {
-                    document.querySelectorAll('[style*="animation"]').forEach(el => {
-                        el.style.animationPlayState = 'running';
-                    });
-                }, Math.max(0, 2000 - loadTime) + 500);
-            });
-        });
-
-        document.getElementById('loader').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        
-        // 添加触摸事件支持
-        document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
 </html>
