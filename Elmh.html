@@ -39,6 +39,13 @@
             border: 3px solid rgba(255, 255, 255, 0.5);
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards 0.2s;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .photo:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
         }
         
         .photo img {
@@ -55,6 +62,14 @@
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards 0.4s;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .name:hover {
+            color: #ffcc00;
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+            transform: scale(1.05);
         }
         
         .tags-container {
@@ -73,11 +88,14 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .tag:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .section {
@@ -88,23 +106,36 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards 0.8s;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.4);
         }
         
         .section-title {
             font-size: 22px;
             margin-bottom: 12px;
             color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover .section-title {
+            color: #ffcc00;
+            transform: translateX(10px);
         }
         
         .self-introduction {
             font-size: 16px;
             line-height: 1.8;
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover .self-introduction {
+            transform: translateX(5px);
         }
         
         .oc-container {
@@ -122,17 +153,24 @@
             margin-bottom: 10px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             background: rgba(0, 0, 0, 0.2);
-            cursor: zoom-in;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: all 0.5s ease;
         }
 
         .oc-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         
         .project {
             font-size: 16px;
             padding: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover .project {
+            transform: translateX(10px);
+            color: #ffcc00;
         }
         
         .contact-info {
@@ -150,6 +188,16 @@
             font-size: 16px;
             width: 100%;
             justify-content: center;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .contact-item a {
@@ -158,11 +206,22 @@
             word-break: break-all;
             text-align: center;
             padding: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover a {
+            color: #ffcc00;
         }
         
         .contact-item i {
             font-size: 18px;
             color: #a0d8ff;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover i {
+            color: #ffcc00;
+            transform: scale(1.2);
         }
         
         .payment-title {
@@ -170,6 +229,13 @@
             margin: 15px 0 8px;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards 1s;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .payment-title:hover {
+            color: #ffcc00;
+            transform: scale(1.05);
         }
         
         .payment-methods {
@@ -183,7 +249,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.3s ease;
+            transition: all 0.5s ease;
+            cursor: pointer;
         }
         
         .payment-method img {
@@ -192,10 +259,12 @@
             object-fit: contain;
             border-radius: 5px;
             border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
         }
 
-        .payment-method img:hover {
-            transform: scale(1.05);
+        .payment-method:hover img {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
         
         .payment-label {
@@ -204,10 +273,22 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover .payment-label {
+            transform: translateY(5px);
+            color: #ffcc00;
         }
 
         .payment-label i {
             color: #a0d8ff;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover .payment-label i {
+            color: #ffcc00;
+            transform: scale(1.2);
         }
         
         .loader-container {
@@ -261,10 +342,22 @@
                 transform: translateY(0);
             }
         }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
         .clickable-img {
-            cursor: zoom-in;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: all 0.5s ease;
         }
 
         .clickable-img:hover {
@@ -281,7 +374,7 @@
             background: rgba(0,0,0,0.9);
             z-index: 9999;
             transition: opacity 0.5s ease;
-            cursor: zoom-out;
+            cursor: pointer;
             justify-content: center;
             align-items: center;
         }
@@ -295,6 +388,43 @@
             border: 3px solid rgba(255,255,255,0.3);
             border-radius: 5px;
             transition: transform 0.3s ease;
+        }
+        
+        /* 粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
         }
 
         /* 移动端优化 */
@@ -310,6 +440,8 @@
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="loader-container" id="loader">
         <div class="loader">
             <div class="loader-circle"></div>
@@ -410,6 +542,29 @@
         function closeImageModal() {
             document.getElementById('imageModal').style.display = "none";
         }
+        
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                const delay = Math.random() * 6;
+                
+                particle.style.left = `${left}vw`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 页面加载完成后创建粒子
+        window.addEventListener('load', createParticles);
     </script>
 </body>
 </html>
