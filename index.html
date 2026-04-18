@@ -6,789 +6,333 @@
     <title>Elmh的个人网页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --accent-cyan: #00f2ff;
+            --accent-gold: #ffcc00;
+            --glass: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.15);
+            --bg-dark: #0a0c10;
         }
+
+        /* --- 基础样式与滚动条美化 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
+
         body {
-            background: url('background_1.jpg') no-repeat center center fixed;
+            background: var(--bg-dark) no-repeat center center fixed;
             background-size: cover;
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             color: #fff;
             line-height: 1.6;
-            padding: 15px;
             min-height: 100vh;
-            text-align: center;
-            -webkit-tap-highlight-color: transparent; 
-            transition: background-image 0.5s ease;
-            position: relative;
+            transition: background-image 0.8s ease;
+            overflow-x: hidden;
         }
+
+        /* 增加全局背景装饰网格 */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px), 
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 90%);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
         .bg-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0);
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(10, 12, 16, 0.2), rgba(10, 12, 16, 0.8));
             z-index: -1;
-            pointer-events: none;
-            transition: background-color 0.5s ease;
         }
-        
+
+        /* --- 布局容器 --- */
         .content-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        
-        .wallpaper-switch-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .wallpaper-switch {
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .wallpaper-switch:hover {
-            background: rgba(0, 0, 0, 0.7);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        .wallpaper-switch:active {
-            transform: scale(0.95);
-        }
-        
-        .wallpaper-switch i {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-        
-        .wallpaper-switch:hover i {
-            transform: rotate(90deg);
-        }
-        
-        
-        .wallpaper-tooltip {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 12px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            white-space: nowrap;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-top: 10px;
-            width: max-content;
-        }
-        
-        .wallpaper-switch-container:hover .wallpaper-tooltip {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .photo {
             position: relative;
-            margin: 0 auto 15px;
-            width: 150px;
-            height: 150px;
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 50px;
+            z-index: 1;
+        }
+
+        /* --- 侧边栏 --- */
+        .sidebar {
+            position: sticky;
+            top: 60px;
+            height: fit-content;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .photo {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 0.2s;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 3px solid var(--accent-cyan);
+            margin: 0 auto 25px;
             cursor: pointer;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+        .photo:hover { 
+            transform: scale(1.15) rotate(5deg); 
+            box-shadow: 0 0 35px var(--accent-cyan); 
         }
         
-        .photo:hover, .photo:active {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
-        }
-        
-        .photo img {
+        /* 核心修复：防止图片拉伸变形 */
+        .photo img, .oc-image, .pay-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-        
-        .name {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 0.4s;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .name:hover, .name:active {
-            color: #ffcc00;
-            text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
-            transform: scale(1.05);
-        }
-        
-        .tags-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 0.6s;
-        }
-        
-        .tag {
-            font-size: 16px;
-            padding: 5px 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            object-fit: cover; 
+            object-position: center;
         }
 
-        .tag:hover, .tag:active {
-            transform: scale(1.1) translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .name { 
+            font-size: 42px; 
+            font-weight: 800; 
+            margin-bottom: 15px; 
+            background: linear-gradient(135deg, #fff 30%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         }
-        
+
+        .motto-box {
+            margin: 25px 0;
+            padding: 15px 20px;
+            border-left: 4px solid var(--accent-gold);
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 0 8px 8px 0;
+        }
+        .motto { font-size: 18px; color: var(--accent-gold); font-weight: bold; line-height: 1.5; }
+        .motto-author { font-size: 13px; color: #aaa; margin-top: 8px; text-align: right; font-style: italic; }
+
+        /* --- 卡片样式优化 --- */
         .section {
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 0.8s;
-            transition: all 0.3s ease;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transform: rotate(calc(var(--r) * 1deg));
+            animation: fadeInUp 0.8s ease-out both, floating 5s ease-in-out infinite 1s;
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
         }
-        
-        .section:hover, .section:active {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            background: rgba(0, 0, 0, 0.4);
+        .section:hover {
+            transform: rotate(0deg) translateY(-10px) scale(1.02) !important;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 40px rgba(0, 242, 255, 0.15);
+            animation-play-state: paused;
         }
-        
-        .section-title {
-            font-size: 22px;
+
+        .section-title { 
+            font-size: 24px; 
+            margin-bottom: 20px; 
+            color: var(--accent-cyan); 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 12px; padding: 5px 14px; margin: 5px;
+            background: rgba(0, 242, 255, 0.05); 
+            border-radius: 20px; 
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            transition: 0.3s;
+            color: #eee;
+        }
+        .tag:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .contact-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+        .contact-item a { color: #ccc; text-decoration: none; transition: 0.3s; font-size: 15px; }
+        .contact-item a:hover { color: var(--accent-gold); transform: translateX(8px); }
+
+        .oc-wrapper {
+            width: 140px;
+            height: 140px;
+            border-radius: 15px;
+            overflow: hidden;
             margin-bottom: 12px;
-            color: #fff;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
         }
-        
-        .section:hover .section-title, .section:active .section-title {
-            color: #ffcc00;
-            transform: translateX(10px);
-        }
-        
-        .self-introduction {
-            font-size: 16px;
-            line-height: 1.8;
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover .self-introduction, .section:active .self-introduction {
-            transform: translateX(5px);
-        }
-        
-        .oc-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 12px 0;
-        }
-        
-        .oc-image {
-            width: 130px;
-            height: 130px;
-            object-fit: contain;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: all 0.5s ease;
-        }
+        .oc-wrapper:hover .oc-image { transform: scale(1.1); }
 
-        .oc-image:hover, .oc-image:active {
-            transform: scale(1.1) rotate(3deg);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        
-        .project {
-            font-size: 16px;
-            padding: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover .project, .section:active .project {
-            transform: translateX(10px);
-            color: #ffcc00;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            width: 100%;
-            justify-content: center;
-            transition: all 0.3s ease;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        .github-snake { width: 100%; border-radius: 12px; margin-top: 15px; filter: brightness(1.2) contrast(1.1); }
 
-        .contact-item:hover, .contact-item:active {
-            transform: translateX(10px) scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .pay-grid { display: flex; gap: 25px; margin-top: 20px; }
+        .pay-item { text-align: center; font-size: 13px; color: #aaa; }
+        .pay-item img { 
+            width: 110px; height: 110px; 
+            border-radius: 12px; 
+            background: #fff; padding: 6px; 
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        
-        .contact-item a {
-            color: #a0d8ff;
-            text-decoration: none;
-            word-break: break-all;
-            text-align: center;
-            padding: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover a, .contact-item:active a {
-            color: #ffcc00;
-        }
-        
-        .contact-item i {
-            font-size: 18px;
-            color: #a0d8ff;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover i, .contact-item:active i {
-            color: #ffcc00;
-            transform: scale(1.2);
-        }
-        
-        .payment-title {
-            font-size: 18px;
-            margin: 15px 0 8px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 1s;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .payment-title:hover, .payment-title:active {
-            color: #ffcc00;
-            transform: scale(1.05);
-        }
-        
-        .payment-methods {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 8px;
-        }
-        
-        .payment-method {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.5s ease;
-            cursor: pointer;
-        }
-        
-        .payment-method img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.5s ease;
-        }
+        .pay-item img:hover { transform: translateY(-5px) scale(1.05); }
 
-        .payment-method:hover img, .payment-method:active img {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        /* 壁纸按钮 */
+        .wallpaper-switch {
+            position: fixed; top: 25px; right: 25px; width: 50px; height: 50px;
+            background: rgba(0,0,0,0.6); border: 1px solid var(--border); border-radius: 50%;
+            color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; 
+            z-index: 100; transition: 0.3s; backdrop-filter: blur(10px);
         }
-        
-        .payment-label {
-            margin-top: 5px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
+        .wallpaper-switch:hover { background: var(--accent-cyan); color: #000; transform: rotate(180deg); }
 
-        .payment-method:hover .payment-label, .payment-method:active .payment-label {
-            transform: translateY(5px);
-            color: #ffcc00;
-        }
-
-        .payment-label i {
-            color: #a0d8ff;
-            transition: all 0.3s ease;
-        }
-        
-        .payment-method:hover .payment-label i, .payment-method:active .payment-label i {
-            color: #ffcc00;
-            transform: scale(1.2);
-        }
-        
-        .loader-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .loader-circle {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.2);
-            border-top-color: #a0d8ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        .loader-text {
-            color: #a0d8ff;
-            font-size: 16px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .clickable-img {
-            cursor: pointer;
-            transition: all 0.5s ease;
-        }
-
-        .clickable-img:hover, .clickable-img:active {
-            transform: scale(1.05);
-        }
-
+        /* 图片模态框 */
         .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-            cursor: pointer;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 10000; justify-content: center; align-items: center; cursor: zoom-out;
+            backdrop-filter: blur(10px);
         }
+        .modal-content { max-width: 85%; max-height: 85%; border-radius: 12px; animation: zoomIn 0.3s ease; }
 
-        .modal-content {
-            max-width: 95vw;
-            max-height: 95vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 5px;
-            transition: transform 0.3s ease;
+        /* --- 动画关键帧 --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floating {
+            0%, 100% { transform: rotate(calc(var(--r) * 1deg)) translateY(0px); }
+            50% { transform: rotate(calc(var(--r) * 1deg)) translateY(-15px); }
         }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                overflow-x: hidden;
-            }
-            
-            .content-container {
-                padding: 10px;
-            }
-            
-            .wallpaper-switch-container {
-                top: 15px;
-                right: 15px;
-            }
-            
-            .wallpaper-switch {
-                width: 36px;
-                height: 36px;
-            }
-            
-            .wallpaper-switch i {
-                font-size: 16px;
-            }
-            
-            .wallpaper-tooltip {
-                font-size: 11px;
-                padding: 6px 10px;
-            }
-            
-            .photo {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .name {
-                font-size: 28px;
-            }
-            
-            .tag {
-                font-size: 14px;
-                padding: 4px 10px;
-            }
-            
-            .section {
-                padding: 12px;
-                margin: 15px 0;
-            }
-            
-            .section-title {
-                font-size: 20px;
-            }
-            
-            .self-introduction, .project {
-                font-size: 15px;
-            }
-            
-            .oc-image {
-                width: 110px;
-                height: 110px;
-            }
-            
-            .contact-item {
-                font-size: 15px;
-                padding: 6px;
-            }
-            
-            .payment-methods {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-            
-            .payment-method img {
-                width: 140px;
-                height: 140px;
-            }
-            
-            
-            .photo, .name, .tags-container, .section, .payment-title {
-                animation: fadeInUp 0.6s ease-out forwards;
-                animation-delay: 0.1s;
-            }
-            
-            .photo:active, .tag:active, .section:active, .contact-item:active {
-                transform: scale(0.98);
-                transition: transform 0.1s ease;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .photo {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .name {
-                font-size: 24px;
-            }
-            
-            .section-title {
-                font-size: 18px;
-            }
-            
-            .self-introduction, .project, .contact-item {
-                font-size: 14px;
-            }
-            
-            .payment-method img {
-                width: 120px;
-                height: 120px;
-            }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        @media (max-width: 850px) {
+            .content-container { grid-template-columns: 1fr; padding: 40px 15px; }
+            .sidebar { position: relative; top: 0; margin-bottom: 40px; }
+            .section { transform: rotate(0deg) !important; animation: fadeInUp 0.8s ease-out both; }
         }
     </style>
 </head>
 <body>
     <div class="bg-overlay"></div>
-    
-    <div class="wallpaper-switch-container">
-        <div class="wallpaper-switch" id="wallpaperSwitch">
-            <i class="fas fa-image"></i>
-        </div>
-        <div class="wallpaper-tooltip">随机切换壁纸</div>
-    </div>
-    
-    <div class="loader-container" id="loader">
-        <div class="loader">
-            <div class="loader-circle"></div>
-            <div class="loader-text">正在加载中...</div>
-        </div>
-    </div>
+    <button class="wallpaper-switch" id="wallpaperSwitch" title="切换壁纸"><i class="fas fa-image"></i></button>
 
     <div class="content-container">
-        <div class="photo">
-            <a href="me.jpg" target="_blank">
-                <img src="me.jpg" alt="Elmh的个人照片" class="clickable-img" onclick="openImageModal(event, this.src)">
-            </a>
-        </div>
-        
-        <h1 class="name">Elmh</h1>
-        
-        <div class="tags-container">
-            <div class="tag">虚幻引擎使用者</div>
-            <div class="tag">3dmax使用者</div>
-            <div class="tag">格斗爱好者</div>
-            <div class="tag">计算机图形学爱好者</div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">关于我</h2>
-            <div class="self-introduction">
-                我是Elmh<br>
-                是SolariiX的成员<br>
-                一名IT爱好者
+        <aside class="sidebar">
+            <div class="photo"><img src="me.jpg" alt="头像" onclick="openImageModal(this.src)"></div>
+            <h1 class="name">Elmh</h1>
+            <div class="motto-box">
+                <div class="motto">“老当益壮，宁移白首之心？穷且益坚，不坠青云之志。”</div>
+                <div class="motto-author">—— 王勃《滕王阁序》</div>
             </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">OC/自设</h2>
-            <div class="oc-container">
-                <a href="oc.png" target="_blank">
-                    <img class="oc-image clickable-img" src="OC.png" alt="Elm Hedmukh（埃尔姆赫德姆赫）" onclick="openImageModal(event, this.src)">
-                </a>
-                <div>Elm Hedmukh（埃尔姆赫德姆赫）</div>
+            <div class="tags-container" style="text-align: left;">
+                <div class="tag"># 虚幻引擎使用者</div>
+                <div class="tag"># 3dmax使用者</div>
+                <div class="tag"># 格斗爱好者</div>
+                <div class="tag"># 计算机图形学</div>
+                <div class="tag"># Soulslike</div>
             </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">我的作品</h2>
-            <div class="project">
-                未知之室<br>
-                一个基于虚幻引擎的恐怖游戏
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">联系方式</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <a href="mailto:1303285187@qq.com">1303285187@qq.com</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fa-brands fa-qq"></i>
-                    <a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fa-brands fa-tiktok"></i>
-                    <a href="https://v.douyin.com/8nRWBoQ378Q/">93714100218（被永久封禁，能解开有偿）</a>
-                </div>
-            </div>
-        </div>
+        </aside>
 
-        <div class="section">
-            <h2 class="section-title">友情链接</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <a href="https://solariix.com/">SolariiX</a>
+        <main>
+            <div class="section" style="--r: -1.2;">
+                <h2 class="section-title"><i class="fas fa-user-astronaut"></i> 关于我</h2>
+                <p>我是 <strong>Elmh</strong>，是 <strong>SolarIIX</strong> 的成员。</p>
+                <p>一名IT爱好者。</p>
+                <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg">
+            </div>
+
+            <div class="section" style="--r: 1.3;">
+                <h2 class="section-title"><i class="fas fa-fingerprint"></i> OC / 自设</h2>
+                <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC" onclick="openImageModal(this.src)"></div>
+                <div style="font-weight: bold; color: var(--accent-gold);">Elm Hedmukh</div>
+                <div style="font-size: 13px; color: #aaa;">(埃尔姆赫德姆赫)</div>
+            </div>
+
+            <div class="section" style="--r: -0.8;">
+                <h2 class="section-title"><i class="fas fa-project-diagram"></i> 我的作品</h2>
+                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px dashed var(--border);">
+                    <strong style="color: var(--accent-cyan); font-size: 18px;">未知之室</strong>
+                    <p style="margin-top: 5px; font-size: 14px;">一个基于虚幻引擎开发的恐怖游戏coding...。</p>
                 </div>
-                <div class="contact-item">
-                    <a href="https://hanyu-3j6.pages.dev/hanyu">韩豫</a>
+            </div>
+
+            <div class="section" style="--r: 1;">
+                <h2 class="section-title"><i class="fas fa-at"></i> 联系方式</h2>
+                <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:1303285187@qq.com">1303285187@qq.com</a></div>
+                <div class="contact-item"><i class="fa-brands fa-qq"></i><a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a></div>
+                <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://v.douyin.com/8nRWBoQ378Q/">抖音 A（求申诉渠道）</a></div>
+                <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://www.douyin.com/user/MS4wLjABAAAAvcM3gZmZrnH0mKRgWOutD_hGJ0ujzgempUZNHcEF_mdF0h5bkg4sqq4LqL_NU3Vx">抖音 B / Elmh</a></div>
+            </div>
+
+            <div class="section" style="--r: -0.5;">
+                <h2 class="section-title"><i class="fas fa-network-wired"></i> 友情链接</h2>
+                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://solariix.com/" target="_blank">SolariiX 社区</a></div>
+                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://hanyu-3j6.pages.dev/hanyu" target="_blank">韩豫的个人空间</a></div>
+            </div>
+
+            <div style="padding: 20px 10px;">
+                <h3 style="color: var(--accent-gold); margin-bottom: 20px;"><i class="fas fa-coffee"></i> 赛博乞讨</h3>
+                <div class="pay-grid">
+                    <div class="pay-item"><img src="微信.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
+                    <div class="pay-item"><img src="支付宝.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
                 </div>
             </div>
-        </div>
-        
-        <h3 class="payment-title">赛博乞讨</h3>
-        <div class="payment-methods">
-            <div class="payment-method">
-                <a href="微信.jpg" target="_blank">
-                    <img src="微信.jpg" alt="微信支付" class="clickable-img" onclick="openImageModal(event, this.src)">
-                </a>
-                <div class="payment-label"><i class="fa-brands fa-weixin"></i> 微信支付</div>
-            </div>
-            <div class="payment-method">
-                <a href="支付宝.jpg" target="_blank">
-                    <img src="支付宝.jpg" alt="支付宝" class="clickable-img" onclick="openImageModal(event, this.src)">
-                </a>
-                <div class="payment-label"><i class="fa-brands fa-alipay"></i> 支付宝</div>
-            </div>
-        </div>
-        
-        <div id="imageModal" class="image-modal" onclick="closeImageModal()">
-            <img class="modal-content" id="modalImage">
-        </div>
+        </main>
+    </div>
+
+    <div id="imageModal" class="image-modal" onclick="this.style.display='none'">
+        <img class="modal-content" id="modalImg">
     </div>
 
     <script>
-        // 壁纸管理功能
-        const wallpaperCount = 9; // 壁纸数量，根据你的图片数量调整
-        let currentWallpaper = 1; // 当前壁纸索引
-        
-        // 获取DOM元素
-        const wallpaperSwitch = document.getElementById('wallpaperSwitch');
-        const wallpaperSwitchIcon = wallpaperSwitch.querySelector('i');
-        const body = document.body;
-        const bgOverlay = document.querySelector('.bg-overlay');
-        
-        // 随机获取壁纸索引（排除当前壁纸）
-        function getRandomWallpaperIndex(current) {
-            let newIndex;
-            do {
-                newIndex = Math.floor(Math.random() * wallpaperCount) + 1;
-            } while (newIndex === current && wallpaperCount > 1);
-            return newIndex;
+        // --- 核心修改：壁纸切换逻辑 ---
+        function setRandomWallpaper() {
+            const idx = Math.floor(Math.random() * 9) + 1;
+            document.body.style.backgroundImage = `url('background_${idx}.jpg')`;
         }
-        
-        // 切换壁纸函数
-        function changeWallpaper() {
-            // 淡出效果
-            bgOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-            
-            // 添加按钮动画 - 只旋转图标
-            wallpaperSwitch.style.transform = 'scale(1.1)';
-            wallpaperSwitchIcon.style.transform = 'rotate(180deg)';
-            
-            // 短暂延迟后更换背景并淡入
-            setTimeout(() => {
-                const newIndex = getRandomWallpaperIndex(currentWallpaper);
-                currentWallpaper = newIndex;
-                
-                // 更新背景图片
-                body.style.backgroundImage = `url('background_${newIndex}.jpg')`;
-                
-                // 淡入效果
-                bgOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-                
-                // 恢复按钮状态
-                setTimeout(() => {
-                    wallpaperSwitch.style.transform = '';
-                    wallpaperSwitchIcon.style.transform = '';
-                }, 300);
-                
-                // 在控制台显示当前壁纸信息（可选，调试用）
-                console.log(`切换到壁纸: background_${newIndex}.jpg`);
-            }, 500);
-        }
-        
-        // 初始化：随机选择一个壁纸
-        function initWallpaper() {
-            currentWallpaper = getRandomWallpaperIndex(0); // 0表示没有当前壁纸
-            body.style.backgroundImage = `url('background_${currentWallpaper}.jpg')`;
-            console.log(`初始壁纸: background_${currentWallpaper}.jpg`);
-        }
-        
-        // 为切换按钮添加点击事件
-        wallpaperSwitch.addEventListener('click', changeWallpaper);
-        
-        // 页面加载完成后初始化壁纸
-        window.addEventListener('load', function() {
-            initWallpaper();
-            
-            // 隐藏加载动画
-            setTimeout(function() {
-                document.getElementById('loader').style.display = 'none';
-            }, 500);
+
+        // 1. 页面一加载就立即设置随机壁纸
+        window.addEventListener('DOMContentLoaded', setRandomWallpaper);
+
+        // 2. 按钮点击切换逻辑
+        const wallBtn = document.getElementById('wallpaperSwitch');
+        wallBtn.addEventListener('click', () => {
+            setRandomWallpaper();
+            wallBtn.style.transform = 'scale(0.9) rotate(180deg)';
+            setTimeout(() => wallBtn.style.transform = 'rotate(180deg)', 200);
         });
 
-        // 图片模态框功能
-        function openImageModal(event, imgSrc) {
-            event.preventDefault();
+        // --- 其他交互逻辑 ---
+        function openImageModal(src) {
             const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modal.style.display = "flex";
-            modalImg.src = imgSrc;
+            const modalImg = document.getElementById('modalImg');
+            modal.style.display = 'flex';
+            modalImg.src = src;
         }
 
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = "none";
-        }
-        
-        // 移动端优化：防止快速点击
-        let lastTouchTime = 0;
-        document.addEventListener('touchstart', function(event) {
-            const now = Date.now();
-            if (now - lastTouchTime < 300) {
-                event.preventDefault();
-            }
-            lastTouchTime = now;
-        }, { passive: false });
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('.bg-overlay').style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
     </script>
 </body>
 </html>
