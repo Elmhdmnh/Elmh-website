@@ -215,6 +215,58 @@
         }
         .modal-content { max-width: 85%; max-height: 85%; border-radius: 12px; animation: zoomIn 0.3s ease; }
 
+        /* --- 酷狗歌单样式（统一风格）--- */
+        #songList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .song-item {
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+
+        .song-item:hover {
+            background: rgba(0, 242, 255, 0.1);
+            border-color: var(--accent-cyan);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.1);
+        }
+
+        .song-number {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .song-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .song-artist {
+            font-size: 13px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .song-artist i {
+            color: var(--accent-cyan);
+            font-size: 11px;
+        }
+
         /* --- 动画关键帧 --- */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes floating {
@@ -227,6 +279,7 @@
             .content-container { grid-template-columns: 1fr; padding: 40px 15px; }
             .sidebar { position: relative; top: 0; margin-bottom: 40px; }
             .section { transform: rotate(0deg) !important; animation: fadeInUp 0.8s ease-out both; }
+            #songList { max-height: 300px; }
         }
     </style>
 </head>
@@ -253,29 +306,70 @@
 
         <main>
             <div class="section" style="--r: -1.2;">
-                <h2 class="section-title"><i class="fas fa-user-astronaut"></i> 关于我</h2>
+                <h2 class="section-title"></i> 关于我</h2>
                 <p>我是 <strong>Elmh</strong>，是 <strong>SolarIIX</strong> 的成员。</p>
                 <p>一名IT爱好者。</p>
                 <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg">
             </div>
 
             <div class="section" style="--r: 1.3;">
-                <h2 class="section-title"><i class="fas fa-fingerprint"></i> OC / 自设</h2>
+                <h2 class="section-title"></i> OC / 自设</h2>
                 <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC" onclick="openImageModal(this.src)"></div>
                 <div style="font-weight: bold; color: var(--accent-gold);">Elm Hedmukh</div>
                 <div style="font-size: 13px; color: #aaa;">(埃尔姆赫德姆赫)</div>
             </div>
 
             <div class="section" style="--r: -0.8;">
-                <h2 class="section-title"><i class="fas fa-project-diagram"></i> 我的作品</h2>
+                <h2 class="section-title"></i> 我的作品</h2>
                 <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px dashed var(--border);">
                     <strong style="color: var(--accent-cyan); font-size: 18px;">未知之室</strong>
                     <p style="margin-top: 5px; font-size: 14px;">一个基于虚幻引擎开发的恐怖游戏</p>
                 </div>
             </div>
 
+            <div class="section" style="--r: 1.75;">
+                <h2 class="section-title"></i> 酷狗歌单</h2>
+                <!-- 歌曲列表容器 -->
+                <div id="songList"></div>
+
+                <script>
+                    const url = "https://api-v2.cenguigui.cn/api/kugou/api.php?id=15321150&page=1&limit=30";
+
+                    fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        const songs = data.data;
+                        const list = document.getElementById("songList");
+                        list.innerHTML = '';
+
+                        songs.forEach((song, index) => {
+                            const item = document.createElement("div");
+                            item.className = "song-item";
+                            item.innerHTML = `
+                                <div class="song-name">
+                                    <span class="song-number">${index + 1}.</span>
+                                    ${song.name}
+                                </div>
+                                <div class="song-artist">
+                                    ${song.artist}
+                                </div>
+                            `;
+                            list.appendChild(item);
+                        });
+                    })
+                    .catch(err => {
+                        console.log("请求失败", err);
+                        document.getElementById("songList").innerHTML = `
+                            <div style="text-align: center; padding: 20px; color: #aaa;">
+                                <i class="fas fa-exclamation-circle"></i> 歌单加载失败，请稍后重试
+                            </div>
+                        `;
+                    });
+                </script>
+            </div>
+
             <div class="section" style="--r: 1;">
-                <h2 class="section-title"><i class="fas fa-at"></i> 联系方式</h2>
+                <h2 class="section-title"></i> 联系方式</h2>
                 <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:1303285187@qq.com">1303285187@qq.com</a></div>
                 <div class="contact-item"><i class="fa-brands fa-qq"></i><a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a></div>
                 <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://v.douyin.com/8nRWBoQ378Q/">抖音 A（求申诉渠道）</a></div>
@@ -283,13 +377,14 @@
             </div>
 
             <div class="section" style="--r: -0.5;">
-                <h2 class="section-title"><i class="fas fa-network-wired"></i> 友情链接</h2>
+                <h2 class="section-title"></i> 友情链接</h2>
                 <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://solariix.com/" target="_blank">SolarIIX 官网</a></div>
-                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://hanyu-3j6.pages.dev/hanyu" target="_blank">韩豫的个人空间</a></div>
+            </br><div style="display:flex;justify-content:left;"> <p>好看的皮囊千篇一律，有趣的灵魂万里挑一。</p></div>
+                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://fshrimp.fun/" target="_blank">陨落基围虾</a></div>
             </div>
 
             <div style="padding: 20px 10px;">
-                <h3 style="color: var(--accent-gold); margin-bottom: 20px;"><i class="fas fa-coffee"></i> 赛博乞讨</h3>
+                <h3 style="color: var(--accent-gold); margin-bottom: 20px;"></i> 赛博乞讨</h3>
                 <div class="pay-grid">
                     <div class="pay-item"><img src="微信.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
                     <div class="pay-item"><img src="支付宝.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
