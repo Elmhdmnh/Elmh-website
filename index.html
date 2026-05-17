@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msvalidate.01" content="A8178C138CB29314D58F26827B454B03" />
     <title>Elmh的个人网页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -40,8 +41,8 @@
                 linear-gradient(var(--border) 1px, transparent 1px), 
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 60px 60px;
-            mask-image: radial-gradient(circle at center, black, transparent 90%);
             -webkit-mask-image: radial-gradient(circle at center, black, transparent 90%);
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
             pointer-events: none;
             z-index: 0;
             opacity: 0.3;
@@ -105,6 +106,7 @@
             margin-bottom: 15px; 
             background: linear-gradient(135deg, #fff 30%, var(--accent-cyan));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         }
@@ -115,18 +117,23 @@
             border-left: 4px solid var(--accent-gold);
             text-align: left;
             background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
             border-radius: 0 8px 8px 0;
         }
         .motto { font-size: 18px; color: var(--accent-gold); font-weight: bold; line-height: 1.5; }
         .motto-author { font-size: 13px; color: #aaa; margin-top: 8px; text-align: right; font-style: italic; }
 
+        .tags-container {
+            text-align: left;
+        }
+
         /* --- 卡片样式优化 --- */
         .section {
             background: var(--glass);
             border: 1px solid var(--border);
-            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
@@ -142,6 +149,13 @@
             box-shadow: 0 15px 40px rgba(0, 242, 255, 0.15);
             animation-play-state: paused;
         }
+
+        .sec-about { --r: -1.2; }
+        .sec-oc { --r: 1.3; }
+        .sec-works { --r: -0.8; }
+        .sec-music { --r: 1.75; }
+        .sec-contact { --r: 1; }
+        .sec-links { --r: -0.5; }
 
         .section-title { 
             font-size: 24px; 
@@ -183,9 +197,36 @@
             border: 1px solid var(--border);
         }
         .oc-wrapper:hover .oc-image { transform: scale(1.1); }
+        .oc-name { font-weight: bold; color: var(--accent-gold); }
+        .oc-name-en { font-size: 13px; color: #aaa; }
+
+        /* --- 作品区样式 --- */
+        .work-item {
+            background: rgba(0,0,0,0.2); 
+            padding: 15px; 
+            border-radius: 12px; 
+            border: 1px dashed var(--border);
+            margin-bottom: 15px;
+        }
+        .work-title { color: var(--accent-cyan); font-size: 18px; font-weight: bold; }
+        .work-desc { margin-top: 5px; font-size: 14px; }
+        .work-btn { 
+            display: inline-block; 
+            margin-top: 12px; 
+            background: #0a5c6e; 
+            color: white; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-size: 14px; 
+        }
 
         .github-snake { width: 100%; border-radius: 12px; margin-top: 15px; filter: brightness(1.2) contrast(1.1); }
 
+        .quote-container { display: flex; justify-content: left; margin: 10px 0; }
+
+        .pay-section { padding: 20px 10px; }
+        .pay-title { color: var(--accent-gold); margin-bottom: 20px; font-size: 1.17em; font-weight: bold; }
         .pay-grid { display: flex; gap: 25px; margin-top: 20px; }
         .pay-item { text-align: center; font-size: 13px; color: #aaa; }
         .pay-item img { 
@@ -202,7 +243,9 @@
             position: fixed; top: 25px; right: 25px; width: 50px; height: 50px;
             background: rgba(0,0,0,0.6); border: 1px solid var(--border); border-radius: 50%;
             color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; 
-            z-index: 100; transition: 0.3s; backdrop-filter: blur(10px);
+            z-index: 100; transition: 0.3s; 
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
         }
         .wallpaper-switch:hover { background: var(--accent-cyan); color: #000; transform: rotate(180deg); }
 
@@ -210,6 +253,7 @@
         .image-modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             z-index: 10000; justify-content: center; align-items: center; cursor: zoom-out;
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
         .modal-content { max-width: 85%; max-height: 85%; border-radius: 12px; animation: zoomIn 0.3s ease; }
@@ -223,6 +267,7 @@
             overflow-y: auto;
             padding-right: 8px;
         }
+        .error-msg { text-align: center; padding: 20px; color: #aaa; }
 
         .song-item {
             padding: 12px 18px;
@@ -288,13 +333,13 @@
 
     <div class="content-container">
         <aside class="sidebar">
-            <div class="photo"><img src="me.jpg" alt="头像" onclick="openImageModal(this.src)"></div>
+            <div class="photo"><img src="me.jpg" alt="Elmh的头像" onclick="openImageModal(this.src)"></div>
             <h1 class="name">Elmh</h1>
             <div class="motto-box">
                 <div class="motto">“老当益壮，宁移白首之心？穷且益坚，不坠青云之志。”</div>
                 <div class="motto-author">—— 王勃《滕王阁序》</div>
             </div>
-            <div class="tags-container" style="text-align: left;">
+            <div class="tags-container">
                 <div class="tag"># 虚幻引擎使用者</div>
                 <div class="tag"># 3dmax使用者</div>
                 <div class="tag"># 格斗爱好者</div>
@@ -304,42 +349,41 @@
         </aside>
 
         <main>
-            <div class="section" style="--r: -1.2;">
-                <h2 class="section-title"></i> 关于我</h2>
+            <div class="section sec-about">
+                <h2 class="section-title"> 关于我</h2>
                 <p>我是 <strong>Elmh</strong>，是 <strong>SolarIIX</strong> 的成员。</p>
                 <p>一名IT爱好者。</p>
-                <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg">
+                <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake">
             </div>
 
-            <div class="section" style="--r: 1.3;">
-                <h2 class="section-title"></i> OC / 自设</h2>
-                <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC" onclick="openImageModal(this.src)"></div>
-                <div style="font-weight: bold; color: var(--accent-gold);">Elm Hedmukh</div>
-                <div style="font-size: 13px; color: #aaa;">(埃尔姆赫德姆赫)</div>
+            <div class="section sec-oc">
+                <h2 class="section-title"> OC / 自设</h2>
+                <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC自设" onclick="openImageModal(this.src)"></div>
+                <div class="oc-name">Elm Hawke</div>
+                <div class="oc-name-en">(埃尔姆·霍克)</div>
             </div>
 
-            <div class="section" style="--r: -0.8;">
-                <h2 class="section-title"></i> 我的作品</h2>
-                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px dashed var(--border);">
-                <strong style="color: var(--accent-cyan); font-size: 18px;">未知之室(Unknown Room)</strong>
-                <p style="margin-top: 5px; font-size: 14px;">一个基于虚幻引擎开发的恐怖游戏</p>
-                <a href="#" onclick="window.open('https://github.com/Elmhdmnh/Elmh-website/releases/download/v0.0.1/HorrorGame.zip', '_blank')" 
-                style="display: inline-block; margin-top: 12px; background: #0a5c6e; color: white; padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 14px;">
-                下载 (Windows)
-                </a>
+            <div class="section sec-works">
+                <h2 class="section-title"> 我的作品</h2>
+                
+                <div class="work-item">
+                    <span class="work-title">未知之室(Unknown Room)</span>
+                    <p class="work-desc">一个基于虚幻引擎开发的恐怖游戏</p>
+                    <a href="HorrorGame.zip" download="HorrorGame.zip" class="work-btn">
+                        下载 (Windows)
+                    </a>
+                </div>
+                
+                <br>
+
+                <div class="work-item">
+                    <span class="work-title">千人千面（A Thousand Faces)</span>
+                    <p class="work-desc">未完成...(缺原画)</p>
+                </div>
             </div>
 
-            </br>
-
-            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border: 1px dashed var(--border);">
-                <strong style="color: var(--accent-cyan); font-size: 18px;">千人千面（A Thousand Faces)</strong>
-                <p style="margin-top: 5px; font-size: 14px;">未完成...</p>
-            </div>
-            </div>
-
-            <div class="section" style="--r: 1.75;">
-                <h2 class="section-title"></i> 酷狗歌单</h2>
-                <!-- 歌曲列表容器 -->
+            <div class="section sec-music">
+                <h2 class="section-title"> 酷狗歌单</h2>
                 <div id="songList"></div>
 
                 <script>
@@ -370,7 +414,7 @@
                     .catch(err => {
                         console.log("请求失败", err);
                         document.getElementById("songList").innerHTML = `
-                            <div style="text-align: center; padding: 20px; color: #aaa;">
+                            <div class="error-msg">
                                 <i class="fas fa-exclamation-circle"></i> 歌单加载失败，请稍后重试
                             </div>
                         `;
@@ -378,33 +422,35 @@
                 </script>
             </div>
 
-            <div class="section" style="--r: 1;">
-                <h2 class="section-title"></i> 联系方式</h2>
+            <div class="section sec-contact">
+                <h2 class="section-title"> 联系方式</h2>
                 <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:1303285187@qq.com">1303285187@qq.com</a></div>
                 <div class="contact-item"><i class="fa-brands fa-qq"></i><a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a></div>
                 <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://v.douyin.com/8nRWBoQ378Q/">抖音 A（能解封有偿）</a></div>
                 <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://www.douyin.com/user/MS4wLjABAAAAvcM3gZmZrnH0mKRgWOutD_hGJ0ujzgempUZNHcEF_mdF0h5bkg4sqq4LqL_NU3Vx">抖音 B / Elmh</a></div>
             </div>
 
-            <div class="section" style="--r: -0.5;">
-                <h2 class="section-title"></i> 友情链接</h2>
-                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://solariix.com/" target="_blank">SolarIIX 官网</a></div>
-            </br><div style="display:flex;justify-content:left;"> <p>好看的皮囊千篇一律，有趣的灵魂万里挑一。</p></div>
-                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://fshrimp.fun/" target="_blank">陨落基围虾</a></div>
+            <div class="section sec-links">
+                <h2 class="section-title"> 友情链接</h2>
+                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://solariix.com/" target="_blank" rel="noopener noreferrer">SolarIIX 官网</a></div>
+                
+                <div class="quote-container"><p>好看的皮囊千篇一律，有趣的灵魂万里挑一。</p></div>
+                
+                <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://fshrimp.fun/" target="_blank" rel="noopener noreferrer">陨落基围虾</a></div>
             </div>
 
-            <div style="padding: 20px 10px;">
-                <h3 style="color: var(--accent-gold); margin-bottom: 20px;"></i> 赛博乞讨</h3>
+            <div class="pay-section">
+                <div class="pay-title"> 赛博乞讨</div>
                 <div class="pay-grid">
-                    <div class="pay-item"><img src="微信.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
-                    <div class="pay-item"><img src="支付宝.jpg" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
+                    <div class="pay-item"><img src="微信.jpg" alt="微信收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
+                    <div class="pay-item"><img src="支付宝.jpg" alt="支付宝收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="imageModal" class="image-modal" onclick="this.style.display='none'">
-        <img class="modal-content" id="modalImg">
+    <div id="imageModal" class="image-modal">
+        <img class="modal-content" id="modalImg" alt="模态框放大的图片">
     </div>
 
     <script>
@@ -432,6 +478,11 @@
             modal.style.display = 'flex';
             modalImg.src = src;
         }
+        
+        // 模态框点击关闭逻辑（从内联样式迁移到此处）
+        document.getElementById('imageModal').addEventListener('click', function() {
+            this.style.display = 'none';
+        });
 
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
