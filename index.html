@@ -221,24 +221,186 @@
         .oc-name-en { font-size: 13px; color: #aaa; }
 
         /* --- 作品区样式 --- */
-        .work-item {
-            background: rgba(0,0,0,0.2); 
-            padding: 15px; 
-            border-radius: 12px; 
-            border: 1px dashed var(--border);
-            margin-bottom: 15px;
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
-        .work-title { color: var(--accent-cyan); font-size: 18px; font-weight: bold; }
-        .work-desc { margin-top: 5px; font-size: 14px; }
-        .work-btn { 
-            display: inline-block; 
-            margin-top: 12px; 
-            background: #0a5c6e; 
-            color: white; 
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            text-decoration: none; 
-            font-size: 14px; 
+
+        .work-card {
+            display: flex;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
+        }
+        .work-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 12px 35px rgba(0, 242, 255, 0.15);
+            background: rgba(0, 242, 255, 0.06);
+        }
+
+        .work-preview {
+            flex-shrink: 0;
+            width: 240px;
+            min-height: 160px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a1a2a 0%, #0d3b4f 50%, #0a1a2a 100%);
+            cursor: pointer;
+        }
+        .work-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .work-card:hover .work-preview img {
+            transform: scale(1.08);
+        }
+        
+        /* 无预览图时的占位样式 */
+        .work-preview-placeholder {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 42px;
+            gap: 8px;
+            transition: all 0.4s;
+        }
+        .work-preview-placeholder.show {
+            display: flex;
+        }
+        .work-card:hover .work-preview-placeholder {
+            color: var(--accent-cyan);
+        }
+        .work-preview-placeholder span {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .work-title-sub {
+            font-weight: 400;
+            font-size: 15px;
+            color: #888;
+        }
+
+        .work-status-row {
+            margin-top: 4px;
+        }
+
+        .work-preview-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            pointer-events: none;
+        }
+
+        .work-info {
+            flex: 1;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+        .work-title {
+            color: var(--accent-cyan);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .work-desc {
+            font-size: 14px;
+            color: #bbb;
+            line-height: 1.7;
+        }
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .work-tag {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(0, 242, 255, 0.08);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            color: #ccc;
+        }
+        .work-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .work-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 242, 255, 0.12);
+            color: var(--accent-cyan);
+            padding: 8px 18px;
+            border-radius: 22px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+        .work-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 4px 18px rgba(0, 242, 255, 0.35);
+            transform: translateY(-2px);
+        }
+        .work-btn.secondary {
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent-gold);
+            border-color: rgba(255, 204, 0, 0.3);
+        }
+        .work-btn.secondary:hover {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 18px rgba(255, 204, 0, 0.35);
+        }
+
+        .work-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .work-status.wip {
+            background: rgba(255, 204, 0, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+        }
+
+        @media (max-width: 700px) {
+            .work-card {
+                flex-direction: column;
+            }
+            .work-preview {
+                width: 100%;
+                height: 180px;
+            }
+            .work-info {
+                padding: 16px;
+            }
         }
 
         .github-snake { width: 100%; border-radius: 12px; margin-top: 15px; filter: brightness(1.2) contrast(1.1); }
@@ -372,12 +534,14 @@
             <div class="section sec-about">
                 <h2 class="section-title"> 关于我</h2>
                 <p>
-                我是 Elmh,
-                一名 Unreal Engine 开发者与 IT 爱好者，
-                热爱游戏开发、计算机图形学、
-                以及 SoulsLike 游戏。
-
-                这里主要展示我的个人作品、
+                我是 Elmh,</br>
+                一位2010年出生的高中学生，</br>
+                就读于山西，</br>
+                是 Unreal Engine 开发者与 IT 爱好者，</br>
+                热爱游戏开发、计算机图形学、</br>
+                以及 SoulsGames。
+                </br></br>
+                这里主要展示我的个人作品、</br>
                 开发项目与兴趣内容。
                 </p>
                 <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake">
@@ -392,23 +556,86 @@
 
             <div class="section sec-works">
                 <h2 class="section-title"> 我的作品</h2>
-                
-                <div class="work-item">
-                    <span class="work-title">未知之室(Unknown Room)</span>
-                    <p class="work-desc">一个基于虚幻引擎开发的恐怖游戏</p>
-                    <a 
-                    href="https://github.com/Elmhdmnh/Elmh-website/releases/download/v0.0.1/HorrorGame.zip" download
-                    class="work-btn"
-                    title="《未知之室》（Unknown Room）游戏下载链接">
-                        下载 (Windows)
-                    </a>
-                </div>
-                
-                <br>
+                <div class="works-grid">
+                    
+                    <!-- 作品1：未知之室 -->
+                    <div class="work-card">
+                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                            <img src="works_unknown_room.png" alt="未知之室 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                            <div class="work-preview-placeholder">
+                                <i class="fas fa-ghost"></i>
+                                <span>加载失败</span>
+                            </div>
+                            <div class="work-preview-overlay"></div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">未知之室 <span class="work-title-sub">Unknown Room</span></div>
+                            <p class="work-desc">使用虚幻引擎 5 开发的恐怖游戏。在黑暗的未知空间中探索、解谜、生存，体验沉浸式的恐怖氛围。</p>
+                            <div class="work-tags">
+                                <span class="work-tag">Unreal Engine 5</span>
+                                <span class="work-tag">恐怖游戏</span>
+                                <span class="work-tag">Blueprint</span>
+                                <span class="work-tag">3D</span>
+                            </div>
+                            <div class="work-actions">
+                                <a href="https://www.bilibili.com/video/BV1BGRvBYECC/?share_source=copy_web&vd_source=d6f572497db9bdc7abffec95630c6190" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-bilibili"></i> 观看演示
+                                </a>
+                                <a href="https://github.com/Elmhdmnh/Elmh-website/releases/download/v0.0.1/HorrorGame.zip" class="work-btn secondary" download title="《未知之室》游戏下载">
+                                    <i class="fas fa-download"></i> 下载 (Windows)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="work-item">
-                    <span class="work-title">千人千面（A Thousand Faces)</span>
-                    <p class="work-desc">未完成...(缺原画)</p>
+                    <!-- 作品2：千人千面 -->
+                    <div class="work-card">
+                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                            <img src="works_thousand_faces.jpg" alt="千人千面 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                            <div class="work-preview-placeholder">
+                                <i class="fas fa-masks-theater"></i>
+                                <span>暂无预览</span>
+                            </div>
+                            <div class="work-preview-overlay"></div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">千人千面 <span class="work-title-sub">A Thousand Faces</span></div>
+                            <p class="work-desc">正在开发中的项目，敬请期待。目前缺少原画资源，后续将逐步完善世界观设定与核心玩法。</p>
+                            <div class="work-tags">
+                                <span class="work-tag">开发中</span>
+                            </div>
+                            <div class="work-status-row">
+                                <span class="work-status wip"><i class="fas fa-hourglass-half"></i> 制作中 — 缺原画</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 作品3：RAT病毒 -->
+                    <div class="work-card">
+                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                            <img src="works_ghostlink.png" alt="GhostLink 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                            <div class="work-preview-placeholder">
+                                <i class="fas fa-bug"></i>
+                                <span>加载失败</span>
+                            </div>
+                            <div class="work-preview-overlay"></div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">GhostLink <span class="work-title-sub">RAT 病毒</span></div>
+                            <p class="work-desc">基于 Python 开发的反向连接远程木马 (RAT)，用于网络安全学习与研究。⚠️ 仅供学习，切勿用于非法用途。</p>
+                            <div class="work-tags">
+                                <span class="work-tag">Python</span>
+                                <span class="work-tag">网络安全</span>
+                                <span class="work-tag">Socket</span>
+                            </div>
+                            <div class="work-actions">
+                                <a href="https://github.com/Elmhdmnh/GhostLink" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
