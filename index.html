@@ -272,6 +272,25 @@
             75% { transform: rotate(15deg) scale(1.15); }
         }
 
+        /* 主页/博客 导航 */
+        .nav-links { display: flex; gap: 10px; margin-top: 18px; }
+        .nav-link {
+            flex: 1;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+        }
+        .nav-link:hover { border-color: var(--accent-cyan); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 242, 255, 0.2); }
+        .nav-link.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
+
         .contact-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
         .contact-item a { color: #ccc; text-decoration: none; transition: 0.3s; font-size: 15px; }
         .contact-item a:hover { color: var(--accent-gold); transform: translateX(8px); }
@@ -761,6 +780,10 @@
             <a class="github-btn" href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer" title="GitHub 主页">
                 <i class="fab fa-github"></i> GitHub / Elmhdmnh
             </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active" data-nav="index"><i class="fas fa-home"></i> 主页</a>
+                <a href="blog.html" class="nav-link" data-nav="blog"><i class="fas fa-feather"></i> 博客</a>
+            </div>
         </aside>
 
         <main>

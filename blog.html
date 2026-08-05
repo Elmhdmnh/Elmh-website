@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elmh 的博客</title>
+    <link rel="icon" type="image/jpeg" href="me.jpg">
+    <link rel="stylesheet" href="blog/blog-style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a class="logo" href="blog.html">Elmh 的博客</a>
+            <nav class="nav">
+                <a href="index.html">主页</a>
+                <a href="blog.html" class="active">博客</a>
+            </nav>
+        </header>
+
+        <div class="cat-filter" id="catFilter">
+            <button class="cat-btn active" data-cat="all">全部</button>
+            <button class="cat-btn" data-cat="tech">技术笔记</button>
+            <button class="cat-btn" data-cat="game">游戏杂谈</button>
+            <button class="cat-btn" data-cat="life">学习生活</button>
+        </div>
+
+        <main class="post-list" id="postList"></main>
+
+        <footer class="site-footer">
+            <span>© <span id="year">2025</span> Elmh</span>
+            <a href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </footer>
+    </div>
+
+    <script>
+    (function() {
+        const list = document.getElementById('postList');
+        const filter = document.getElementById('catFilter');
+        let posts = [];
+        let cat = 'all';
+        const CAT = { tech: '技术笔记', game: '游戏杂谈', life: '学习生活' };
+
+        function esc(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        function render() {
+            const items = posts
+                .filter(p => cat === 'all' || p.category === cat)
+                .sort((a, b) => (a.date < b.date ? 1 : -1));
+            list.innerHTML = '';
+            if (!items.length) {
+                list.innerHTML = '<div class="post-empty">这个分类还没有文章</div>';
+                return;
+            }
+            items.forEach(p => {
+                const a = document.createElement('a');
+                a.className = 'post-item';
+                a.href = 'blog/post.html?slug=' + encodeURIComponent(p.slug);
+                a.innerHTML = `
+                    <div class="post-date">${esc(p.date)} · ${esc(CAT[p.category] || p.category)}</div>
+                    <div class="post-title">${esc(p.title)}</div>
+                    <div class="post-excerpt">${esc(p.excerpt || '')}</div>`;
+                list.appendChild(a);
+            });
+        }
+
+        fetch('blog/posts/index.json')
+            .then(r => r.json())
+            .then(data => { posts = data; render(); })
+            .catch(() => {
+                const local = location.protocol === 'file:';
+                list.innerHTML = local
+                    ? '<div class="post-empty">本地直接打开无法加载文章（浏览器安全限制）<br>请用本地服务器预览，或部署到 GitHub Pages 后访问</div>'
+                    : '<div class="post-empty">文章列表加载失败，请稍后刷新</div>';
+            });
+
+        filter.addEventListener('click', (e) => {
+            const btn = e.target.closest('.cat-btn');
+            if (!btn) return;
+            cat = btn.dataset.cat;
+            filter.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b === btn));
+            render();
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+    </script>
+</body>
+</html>
