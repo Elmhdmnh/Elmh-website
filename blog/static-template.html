@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} · Elmh 的博客</title>
+    <link rel="icon" type="image/jpeg" href="../me.jpg">
+    <link rel="stylesheet" href="blog-style.css">
+    <meta name="description" content="{{DESC}}">
+    <meta name="keywords" content="Elmh, 博客, {{CAT}}">
+    <link rel="canonical" href="https://elmh.top/blog/{{SLUG}}.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESC}}">
+    <meta property="og:url" content="https://elmh.top/blog/{{SLUG}}.html">
+    <meta property="og:site_name" content="Elmh 的博客">
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "datePublished": "{{DATE}}",
+    "dateModified": "{{DATE}}",
+    "author": {"@type": "Person", "name": "Elmh", "url": "https://elmh.top"},
+    "mainEntityOfPage": "https://elmh.top/blog/{{SLUG}}.html"
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a class="logo" href="../blog.html">Elmh 的博客</a>
+            <nav class="nav">
+                <a href="../index.html">主页</a>
+                <a href="../blog.html">博客</a>
+            </nav>
+        </header>
+
+        <article>
+            <header class="post-header">
+                <h1>{{TITLE}}</h1>
+                <div class="post-meta">
+                    <span>{{DATE}}</span>
+                    <span>{{CAT}}</span>
+                </div>
+            </header>
+            <div class="post-body">
+{{BODY}}
+            </div>
+            <a class="post-back" href="../blog.html">← 返回列表</a>
+        </article>
+
+        <footer class="site-footer">
+            <span>© {{YEAR}} Elmh</span>
+            <a href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>

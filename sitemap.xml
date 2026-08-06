@@ -19,7 +19,7 @@
 
     <!-- 博客文章：hello-world -->
     <url>
-        <loc>https://elmh.top/blog/post.html?slug=hello-world</loc>
+        <loc>https://elmh.top/blog/hello-world.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
@@ -27,7 +27,7 @@
 
     <!-- 博客文章：game-experience -->
     <url>
-        <loc>https://elmh.top/blog/post.html?slug=game-experience</loc>
+        <loc>https://elmh.top/blog/game-experience.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
@@ -35,7 +35,7 @@
 
     <!-- 博客文章：ue5-first-steps -->
     <url>
-        <loc>https://elmh.top/blog/post.html?slug=ue5-first-steps</loc>
+        <loc>https://elmh.top/blog/ue5-first-steps.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
@@ -43,7 +43,7 @@
 
     <!-- 博客文章：what-is-man -->
     <url>
-        <loc>https://elmh.top/blog/post.html?slug=what-is-man</loc>
+        <loc>https://elmh.top/blog/what-is-man.html</loc>
         <lastmod>2025-08-06</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
