@@ -1,4 +1,29 @@
+# robots.txt — https://elmh.top
+# Elmh 个人网站(GitHub Pages 静态站点)
+# 全站内容(主页、博客、作品展示)均允许爬虫抓取与收录。
+
+# 通用规则:允许抓取全站
 User-agent: *
 Allow: /
 
+# --- 主要搜索引擎显式规则(与上面一致,便于各引擎识别) ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+# 站点地图,供爬虫发现全部页面
 Sitemap: https://elmh.top/sitemap.xml

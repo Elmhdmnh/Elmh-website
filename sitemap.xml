@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+    <!-- 首页 -->
     <url>
         <loc>https://elmh.top/</loc>
         <lastmod>2026-05-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+
+    <!-- 博客列表 -->
+    <url>
+        <loc>https://elmh.top/blog.html</loc>
+        <lastmod>2026-05-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 博客文章：hello-world -->
+    <url>
+        <loc>https://elmh.top/blog/post.html?slug=hello-world</loc>
+        <lastmod>2025-08-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 博客文章：game-experience -->
+    <url>
+        <loc>https://elmh.top/blog/post.html?slug=game-experience</loc>
+        <lastmod>2025-08-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 博客文章：ue5-first-steps -->
+    <url>
+        <loc>https://elmh.top/blog/post.html?slug=ue5-first-steps</loc>
+        <lastmod>2025-08-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 博客文章：what-is-man -->
+    <url>
+        <loc>https://elmh.top/blog/post.html?slug=what-is-man</loc>
+        <lastmod>2025-08-06</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
     </url>
 
 </urlset>
