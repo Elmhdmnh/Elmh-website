@@ -17,10 +17,18 @@
   },
   {
     "slug": "ue5-first-steps",
-    "title": "# Unreal Engine 5 Bug 修复（回忆）",
+    "title": "Unreal Engine 5 Bug 修复（回忆）",
     "date": "2025-08-05",
     "category": "tech",
     "excerpt": "占位文章，顺便写一下我以前遇到的一个 Bug 。",
     "file": "ue5-first-steps.md"
+  },
+  {
+    "slug": "what-is-man",
+    "title": "什么是男人该有的样子？",
+    "date": "2025-08-06",
+    "category": "life",
+    "excerpt": "我的审美。",
+    "file": "what-is-man.md"
   }
 ]
