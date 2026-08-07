@@ -30,5 +30,13 @@
     "category": "life",
     "excerpt": "我的审美。",
     "file": "what-is-man.md"
+  },
+  {
+    "slug":"world",
+    "title":"世界属于凯撒，女孩属于男孩",
+    "date":"2025-08-07",
+    "category":"life",
+    "excerpt":"有感而发",
+    "file":"world.md"
   }
 ]
