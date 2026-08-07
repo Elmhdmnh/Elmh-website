@@ -4,7 +4,7 @@
     <!-- 首页 -->
     <url>
         <loc>https://elmh.top/</loc>
-        <lastmod>2026-05-17</lastmod>
+        <lastmod>2026-08-07</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -12,41 +12,38 @@
     <!-- 博客列表 -->
     <url>
         <loc>https://elmh.top/blog.html</loc>
-        <lastmod>2026-05-17</lastmod>
+        <lastmod>2026-08-07</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
-
-    <!-- 博客文章：hello-world -->
     <url>
         <loc>https://elmh.top/blog/hello-world.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
-
-    <!-- 博客文章：game-experience -->
     <url>
         <loc>https://elmh.top/blog/game-experience.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
-
-    <!-- 博客文章：ue5-first-steps -->
     <url>
         <loc>https://elmh.top/blog/ue5-first-steps.html</loc>
         <lastmod>2025-08-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
-
-    <!-- 博客文章：what-is-man -->
     <url>
         <loc>https://elmh.top/blog/what-is-man.html</loc>
         <lastmod>2025-08-06</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
-
+    <url>
+        <loc>https://elmh.top/blog/world.html</loc>
+        <lastmod>2025-08-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

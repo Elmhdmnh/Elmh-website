@@ -25,9 +25,5 @@ Allow: /
 User-agent: 360Spider
 Allow: /
 
-# 站内构建模板/脚本,无需收录
-Disallow: /blog/static-template.html
-Disallow: /blog/posts/_gen_static.py
-
 # 站点地图,供爬虫发现全部页面
 Sitemap: https://elmh.top/sitemap.xml
