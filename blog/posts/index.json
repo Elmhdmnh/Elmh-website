@@ -38,5 +38,13 @@
     "category":"life",
     "excerpt":"有感而发",
     "file":"world.md"
+  },
+  {
+    "slug":"myRAT",
+    "title":"我的RAT",
+    "date":"2025-08-07",
+    "category":"tech",
+    "excerpt":"我写病毒的历史",
+    "file":"myRAT.md"
   }
 ]
