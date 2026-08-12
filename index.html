@@ -170,6 +170,33 @@
                         </div>
                     </div>
 
+                    <!-- 作品4：人脸识别系统 -->
+                    <div class="work-card">
+                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                            <img src="works_facialrecognition.png" alt="人脸识别系统 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                            <div class="work-preview-placeholder">
+                                <i class="fas fa-face-smile"></i>
+                                <span>加载失败</span>
+                            </div>
+                            <div class="work-preview-overlay"></div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">人脸识别系统 <span class="work-title-sub">Face Recognition</span></div>
+                            <p class="work-desc">基于 InsightFace 的本地人脸识别工具，简洁黑白灰图形界面，支持注册人脸与单帧识别，数据完全本地存储，开源可商用。</p>
+                            <div class="work-tags">
+                                <span class="work-tag">Python</span>
+                                <span class="work-tag">InsightFace</span>
+                                <span class="work-tag">OpenCV</span>
+                                <span class="work-tag">Tkinter</span>
+                            </div>
+                            <div class="work-actions">
+                                <a href="https://github.com/Elmhdmnh/Facial-recognition" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -184,6 +211,11 @@
                     <a class="repo-card" href="https://github.com/Elmhdmnh/GhostLink" target="_blank" rel="noopener noreferrer">
                         <div class="repo-name"><i class="fab fa-github"></i> GhostLink</div>
                         <div class="repo-desc">基于 Python 的反向连接远程木马（RAT），用于网络安全学习与研究</div>
+                        <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
+                    </a>
+                    <a class="repo-card" href="https://github.com/Elmhdmnh/Facial-recognition" target="_blank" rel="noopener noreferrer">
+                        <div class="repo-name"><i class="fab fa-github"></i> Facial-recognition</div>
+                        <div class="repo-desc">基于 InsightFace 的本地人脸识别系统，简洁 GUI，开源可商用</div>
                         <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
                     </a>
                 </div>
