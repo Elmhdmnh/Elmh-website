@@ -54,5 +54,13 @@
     "category":"life",
     "excerpt":"我的价值观",
     "file":"myValues.md"
+  },
+  {
+    "slug":"Phantom-Blade-Zero",
+    "title":"《影之刃零》预售",
+    "date":"2025-08-14",
+    "category":"game",
+    "excerpt":"想起了一些事情",
+    "file":"Phantom-Blade-Zero.md"
   }
 ]
