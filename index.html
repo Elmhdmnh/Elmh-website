@@ -197,6 +197,32 @@
                         </div>
                     </div>
 
+                    <!-- 作品5：面部动作控制 -->
+                    <div class="work-card">
+                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                            <img src="works_facilactioncontrol.jpg" alt="面部动作控制 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                            <div class="work-preview-placeholder">
+                                <i class="fas fa-face-grin-beam"></i>
+                                <span>加载失败</span>
+                            </div>
+                            <div class="work-preview-overlay"></div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-title">面部动作控制 <span class="work-title-sub">Facial Action Control</span></div>
+                            <p class="work-desc">基于面部表情与动作捕捉的控制交互项目，通过摄像头实时识别面部动作并转化为控制信号。项目详情与使用说明请查看 GitHub 仓库。</p>
+                            <div class="work-tags">
+                                <span class="work-tag">面部动作</span>
+                                <span class="work-tag">表情识别</span>
+                                <span class="work-tag">动作捕捉</span>
+                            </div>
+                            <div class="work-actions">
+                                <a href="https://github.com/Elmhdmnh/FacialActionControl" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -217,6 +243,10 @@
                         <div class="repo-name"><i class="fab fa-github"></i> Facial-recognition</div>
                         <div class="repo-desc">基于 InsightFace 的本地人脸识别系统，简洁 GUI，开源可商用</div>
                         <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
+                    </a>
+                    <a class="repo-card" href="https://github.com/Elmhdmnh/FacialActionControl" target="_blank" rel="noopener noreferrer">
+                        <div class="repo-name"><i class="fab fa-github"></i> FacialActionControl</div>
+                        <div class="repo-desc">基于面部表情与动作捕捉的控制交互项目</div>
                     </a>
                 </div>
             </div>
