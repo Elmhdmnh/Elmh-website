@@ -2,7 +2,7 @@
   {
     "slug": "hello-world",
     "title": "你好，博客！",
-    "date": "2025-08-05",
+    "date": "2026-08-05",
     "category": "life",
     "excerpt": "博客开张的第一篇文章，顺便说明一下这个博客的用法。",
     "file": "hello-world.md"
@@ -10,7 +10,7 @@
   {
     "slug": "game-experience",
     "title": "游戏经历",
-    "date": "2025-08-05",
+    "date": "2026-08-05",
     "category": "game",
     "excerpt": "我是怎么走上游戏开发的道路的？",
     "file": "game-experience.md"
@@ -18,7 +18,7 @@
   {
     "slug": "ue5-first-steps",
     "title": "Unreal Engine 5 Bug 修复（回忆）",
-    "date": "2025-08-05",
+    "date": "2026-08-05",
     "category": "tech",
     "excerpt": "占位文章，顺便写一下我以前遇到的一个 Bug 。",
     "file": "ue5-first-steps.md"
@@ -26,7 +26,7 @@
   {
     "slug": "what-is-man",
     "title": "什么是男人该有的样子？",
-    "date": "2025-08-06",
+    "date": "2026-08-06",
     "category": "life",
     "excerpt": "我的审美。",
     "file": "what-is-man.md"
@@ -34,7 +34,7 @@
   {
     "slug":"world",
     "title":"世界属于凯撒，女孩属于男孩",
-    "date":"2025-08-07",
+    "date":"2026-08-07",
     "category":"life",
     "excerpt":"有感而发",
     "file":"world.md"
@@ -42,7 +42,7 @@
   {
     "slug":"myRAT",
     "title":"我的RAT",
-    "date":"2025-08-08",
+    "date":"2026-08-08",
     "category":"tech",
     "excerpt":"我写病毒的历史",
     "file":"myRAT.md"
@@ -50,7 +50,7 @@
   {
     "slug":"myValues",
     "title":"我的价值观",
-    "date":"2025-08-14",
+    "date":"2026-08-14",
     "category":"life",
     "excerpt":"我的价值观",
     "file":"myValues.md"
@@ -58,7 +58,7 @@
   {
     "slug":"Phantom-Blade-Zero",
     "title":"《影之刃零》预售",
-    "date":"2025-08-14",
+    "date":"2026-08-14",
     "category":"game",
     "excerpt":"想起了一些事情",
     "file":"Phantom-Blade-Zero.md"
@@ -66,7 +66,7 @@
   {
     "slug":"Ghostly-Romance",
     "title":"阴桃花（回忆）",
-    "date":"2025-08-15",
+    "date":"2026-08-15",
     "category":"life",
     "excerpt":"我之前的梦境",
     "file":"Ghostly-Romance.md"
