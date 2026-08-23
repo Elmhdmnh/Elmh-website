@@ -70,5 +70,13 @@
     "category":"life",
     "excerpt":"我之前的梦境",
     "file":"Ghostly-Romance.md"
+  },
+  {
+    "slug":"diary20260823",
+    "title":"2026-08-23日记",
+    "date":"2025-08-23",
+    "category":"life",
+    "excerpt":"日记",
+    "file":"diary20260823.md"
   }
 ]
