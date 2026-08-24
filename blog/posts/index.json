@@ -78,5 +78,13 @@
     "category":"life",
     "excerpt":"日记",
     "file":"diary20260823.md"
+  },
+  {
+    "slug":"nightclub",
+    "title":"眼神（短篇小说）",
+    "date":"2026-08-24",
+    "category":"life",
+    "excerpt":"短篇小说",
+    "file":"nightclub.md"
   }
 ]
