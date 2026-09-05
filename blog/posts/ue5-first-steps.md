@@ -6,8 +6,8 @@
 
 当时我跟个傻逼一样Cast to了半天，QQ群里的人还问我为什么`EventBegin`后连Cast to，根本不需要，我还跟他们说不连控制不了角色（实际上连了也控制不了）
 
-经过我自己的长久排查，终于发现：原来是我**所有控件都调用了 `OnlyUIModeInput` 这个节点**，导致输入模式被锁定成 UI 模式了。
+经过我自己的长久排查，终于发现：原来是我**所有控件都调用了 `SetGameModeInputUIOnly` 这个节点**，导致输入模式被锁定成 UI 模式了。
 
-然后在主关卡的 `EventBegin` 后面连上 `OnlyGameModeInput` 节点，问题就解决了。
+然后在主关卡的 `EventBegin` 后面连上 `SetGameModeInputGameOnly` 节点，问题就解决了。
 
 修这个 Bug 的时候我问过好多 AI，但都修复不了，给了一堆很傻逼的建议，没有一个有用的。我后来还想过：要是建一个网站，每个人都把自己修 Bug 的经历投喂上去，训练出一个专门修 Bug 的 AI 就好了……
