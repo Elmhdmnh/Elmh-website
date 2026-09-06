@@ -8,6 +8,9 @@
     <link rel="icon" type="image/jpeg" href="me.jpg">
     <meta name="description" content="Elmh 的个人网站，包含虚幻引擎作品、OC设定、游戏开发与个人项目展示。">
     <meta name="keywords" content="Elmh, Unreal Engine, 虚幻引擎, 游戏开发, IT, 千人千面, Unknown Room, 未知之室,Elm Hawke, 榎 鷹夜">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta property="og:title" content="Elmh">
     <meta property="og:description" content="虚幻引擎开发者 / 游戏爱好者">
@@ -33,281 +36,314 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-overlay"></div>
     <div class="reading-progress" id="readingProgress"></div>
-    <div class="cursor-glow" id="cursorGlow"></div>
-    <button class="wallpaper-switch" id="wallpaperSwitch" title="选择壁纸"><i class="fas fa-image"></i></button>
     <button class="back-to-top" id="backToTop" title="回到顶部"><i class="fas fa-arrow-up"></i></button>
 
-    <div class="content-container">
-        <aside class="sidebar">
-            <div class="photo"><img src="me.jpg" alt="Elmh的头像" onclick="openImageModal(this.src)"></div>
-            <h1 class="name">Elmh</h1>
-            <div class="motto-box">
+    <nav class="top-nav" id="topNav">
+        <a class="brand" href="index.html">Elmh<span class="brand-dot">.</span></a>
+        <div class="nav-actions">
+            <a href="index.html" class="nav-link active" data-nav="index">主页</a>
+            <a href="blog.html" class="nav-link" data-nav="blog">博客</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-content" id="heroContent">
+            <p class="hero-eyebrow"><span></span>UNREAL ENGINE · GAME DEV · IT<span></span></p>
+            <div class="hero-avatar"><img src="me.jpg" alt="Elmh的头像" onclick="openImageModal(this.src)"></div>
+            <h1 class="hero-name">Elmh</h1>
+            <div class="hero-motto-box">
                 <div class="motto">“老当益壮，宁移白首之心？穷且益坚，不坠青云之志。”</div>
                 <div class="motto-author">—— 王勃《滕王阁序》</div>
             </div>
+            <div class="hero-actions">
+                <a class="hero-btn primary" href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a class="hero-btn ghost" href="#about">了解我 <i class="fas fa-arrow-down"></i></a>
+            </div>
+        </div>
+        <div class="scroll-hint" id="scrollHint"><span class="scroll-line"></span><span class="scroll-text">SCROLL</span></div>
+    </header>
+
+    <main class="content-container">
+        <div class="section sec-about" id="about">
+            <div class="section-head">
+                <span class="section-index">01</span>
+                <h2 class="section-title">关于我<span class="section-title-en">About Me</span></h2>
+            </div>
+            <p class="lead">
+                我是 Elmh，一位 2010 年出生的高中学生，就读于山西，
+                是 Unreal Engine 开发者与 IT 爱好者，
+                热爱游戏开发、计算机图形学以及 SoulsGames。
+            </p>
+            <p class="about-text">这里主要展示我的个人作品、开发项目与兴趣内容。</p>
             <div class="tags-container">
-                <div class="tag"># 虚幻引擎使用者</div>
-                <div class="tag"># 3dmax使用者</div>
-                <div class="tag"># 格斗爱好者</div>
-                <div class="tag"># 计算机图形学</div>
-                <div class="tag"># SoulsGames爱好者</div>
+                <span class="tag">虚幻引擎</span>
+                <span class="tag">3ds Max</span>
+                <span class="tag">格斗</span>
+                <span class="tag">计算机图形学</span>
+                <span class="tag">SoulsGames</span>
             </div>
-            <a class="github-btn" href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer" title="GitHub 主页">
-                <i class="fab fa-github"></i> GitHub / Elmhdmnh
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active" data-nav="index"><i class="fas fa-home"></i> 主页</a>
-                <a href="blog.html" class="nav-link" data-nav="blog"><i class="fas fa-feather"></i> 博客</a>
-            </div>
-        </aside>
+            <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake" loading="lazy">
+        </div>
 
-        <main>
-            <div class="section sec-about">
-                <h2 class="section-title"> 关于我/About Me</h2>
-                <p>
-                我是 Elmh,</br>
-                一位2010年出生的高中学生，</br>
-                就读于山西，</br>
-                是 Unreal Engine 开发者与 IT 爱好者，</br>
-                热爱游戏开发、计算机图形学、</br>
-                以及 SoulsGames。
-                </br></br>
-                这里主要展示我的个人作品、</br>
-                开发项目与兴趣内容。
-                </p>
-                <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake">
+        <div class="section sec-oc">
+            <div class="section-head">
+                <span class="section-index">02</span>
+                <h2 class="section-title">OC / 自设<span class="section-title-en">Original Character</span></h2>
             </div>
-
-            <div class="section sec-oc">
-                <h2 class="section-title"> OC / 自设</h2>
+            <div class="oc-layout">
                 <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC自设" onclick="openImageModal(this.src)"></div>
-                <div class="oc-name">Elm Hawke</div>
-                <div class="oc-name-en">(埃尔姆·霍克)</div>
-                <div class="oc-name-en">榎 鷹夜（えのき たかや / Enoki Takaya）</div>
-            </div>
-
-            <div class="section sec-works">
-                <h2 class="section-title"> 我的作品/DEVELOPMENT</h2>
-                <div class="works-grid">
-                    
-                    <!-- 作品1：未知之室 -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_unknown_room.png" alt="未知之室 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-ghost"></i>
-                                <span>加载失败</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">未知之室 <span class="work-title-sub">Unknown Room</span></div>
-                            <p class="work-desc">使用虚幻引擎 5 开发的恐怖游戏。在黑暗的未知空间中探索、解谜、生存，体验沉浸式的恐怖氛围。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">Unreal Engine 5</span>
-                                <span class="work-tag">恐怖游戏</span>
-                                <span class="work-tag">Blueprint</span>
-                                <span class="work-tag">3D</span>
-                            </div>
-                            <div class="work-actions">
-                                <a href="https://www.bilibili.com/video/BV1BGRvBYECC/?share_source=copy_web&vd_source=d6f572497db9bdc7abffec95630c6190" class="work-btn" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-bilibili"></i> 观看演示
-                                </a>
-                                <a href="https://github.com/Elmhdmnh/Elmh-website/releases/download/v0.0.1/HorrorGame.zip" class="work-btn secondary" id="downloadHorrorGame" title="《未知之室》游戏下载">
-                                    <i class="fas fa-download"></i> 下载 (Windows)
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品2：千人千面 -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_thousand_faces.jpg" alt="千人千面 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-masks-theater"></i>
-                                <span>暂无预览</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">千人千面 <span class="work-title-sub">A Thousand Faces</span></div>
-                            <p class="work-desc">正在开发中的项目，敬请期待。目前缺少原画资源，后续将逐步完善世界观设定与核心玩法。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">开发中</span>
-                            </div>
-                            <div class="work-status-row">
-                                <span class="work-status wip"><i class="fas fa-hourglass-half"></i> 制作中 — 缺原画</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品3：RAT病毒 -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_ghostlink.png" alt="GhostLink 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-bug"></i>
-                                <span>加载失败</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">GhostLink <span class="work-title-sub">RAT 病毒</span></div>
-                            <p class="work-desc">基于 Python 开发的反向连接远程木马 (RAT)，用于网络安全学习与研究。 仅供学习，切勿用于非法用途。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">Python</span>
-                                <span class="work-tag">网络安全</span>
-                                <span class="work-tag">Socket</span>
-                            </div>
-                            <div class="work-actions">
-                                <a href="https://github.com/Elmhdmnh/GhostLink" class="work-btn" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品4：人脸识别系统 -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_facialrecognition.png" alt="人脸识别系统 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-face-smile"></i>
-                                <span>加载失败</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">人脸识别系统 <span class="work-title-sub">Facial Recognition</span></div>
-                            <p class="work-desc">基于 InsightFace(ArcFace算法) 的本地人脸识别工具，简洁黑白灰图形界面，支持注册人脸与单帧识别，数据完全本地存储，开源可商用。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">Python</span>
-                                <span class="work-tag">InsightFace</span>
-                                <span class="work-tag">OpenCV</span>
-                                <span class="work-tag">Tkinter</span>
-                            </div>
-                            <div class="work-actions">
-                                <a href="https://github.com/Elmhdmnh/Facial-recognition" class="work-btn" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品5：面部动作控制 -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_facilactioncontrol.jpg" alt="面部动作控制 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-face-grin-beam"></i>
-                                <span>加载失败</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">面部动作控制 <span class="work-title-sub">Facial Action Control</span></div>
-                            <p class="work-desc">基于面部表情与动作捕捉的控制交互项目，通过摄像头实时识别面部动作并转化为控制信号。项目详情与使用说明请查看 GitHub 仓库。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">面部动作</span>
-                                <span class="work-tag">表情识别</span>
-                                <span class="work-tag">动作捕捉</span>
-                            </div>
-                            <div class="work-actions">
-                                <a href="https://github.com/Elmhdmnh/FacialActionControl" class="work-btn" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品6：How to Fish Trainer -->
-                    <div class="work-card">
-                        <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                            <img src="works_howtofishtrainer.jpg" alt="How to Fish Trainer 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
-                            <div class="work-preview-placeholder">
-                                <i class="fas fa-fish"></i>
-                                <span>加载失败</span>
-                            </div>
-                            <div class="work-preview-overlay"></div>
-                        </div>
-                        <div class="work-info">
-                            <div class="work-title">How to Fish Trainer <span class="work-title-sub">钓鱼游戏辅助工具</span></div>
-                            <p class="work-desc">Steam 钓鱼游戏《How to Fish》的 Trainer（训练器/修改器）辅助工具，为钓鱼玩法提供便捷辅助功能，仅供学习研究使用。项目详情请查看 GitHub 仓库。</p>
-                            <div class="work-tags">
-                                <span class="work-tag">Steam</span>
-                                <span class="work-tag">游戏工具</span>
-                                <span class="work-tag">Trainer</span>
-                            </div>
-                            <div class="work-actions">
-                                <a href="https://github.com/Elmhdmnh/How-to-Fish-Trainer" class="work-btn" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="oc-info">
+                    <div class="oc-name">Elm Hawke</div>
+                    <div class="oc-name-en">(埃尔姆·霍克)</div>
+                    <div class="oc-name-en">榎 鷹夜（えのき たかや / Enoki Takaya）</div>
                 </div>
             </div>
+        </div>
 
-            <div class="section sec-repos">
-                <h2 class="section-title"> GitHub 仓库/Repositories</h2>
-                <div class="repo-grid" id="repoGrid">
-                    <a class="repo-card" href="https://github.com/Elmhdmnh/Elmh-website" target="_blank" rel="noopener noreferrer">
-                        <div class="repo-name"><i class="fab fa-github"></i> Elmh-website</div>
-                        <div class="repo-desc">个人网站源码（本站）</div>
-                        <div class="repo-meta"><span><span class="lang-dot" style="background:#e34c26"></span>HTML</span></div>
-                    </a>
-                    <a class="repo-card" href="https://github.com/Elmhdmnh/GhostLink" target="_blank" rel="noopener noreferrer">
-                        <div class="repo-name"><i class="fab fa-github"></i> GhostLink</div>
-                        <div class="repo-desc">基于 Python 的反向连接远程木马（RAT），用于网络安全学习与研究</div>
-                        <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
-                    </a>
-                    <a class="repo-card" href="https://github.com/Elmhdmnh/Facial-recognition" target="_blank" rel="noopener noreferrer">
-                        <div class="repo-name"><i class="fab fa-github"></i> Facial-recognition</div>
-                        <div class="repo-desc">基于 InsightFace 的本地人脸识别系统，简洁 GUI，开源可商用</div>
-                        <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
-                    </a>
-                    <a class="repo-card" href="https://github.com/Elmhdmnh/FacialActionControl" target="_blank" rel="noopener noreferrer">
-                        <div class="repo-name"><i class="fab fa-github"></i> FacialActionControl</div>
-                        <div class="repo-desc">基于面部表情与动作捕捉的控制交互项目</div>
-                    </a>
-                    <a class="repo-card" href="https://github.com/Elmhdmnh/How-to-Fish-Trainer" target="_blank" rel="noopener noreferrer">
-                        <div class="repo-name"><i class="fab fa-github"></i> How-to-Fish-Trainer</div>
-                        <div class="repo-desc">Steam 游戏《How to Fish》的 Trainer 辅助工具</div>
-                    </a>
-                </div>
+        <div class="section sec-works">
+            <div class="section-head">
+                <span class="section-index">03</span>
+                <h2 class="section-title">我的作品<span class="section-title-en">Development</span></h2>
             </div>
+            <div class="works-grid">
+                
+                <!-- 作品1：未知之室 -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_unknown_room.png" alt="未知之室 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-ghost"></i>
+                            <span>加载失败</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">未知之室 <span class="work-title-sub">Unknown Room</span></div>
+                        <p class="work-desc">使用虚幻引擎 5 开发的恐怖游戏。在黑暗的未知空间中探索、解谜、生存，体验沉浸式的恐怖氛围。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Unreal Engine 5</span>
+                            <span class="work-tag">恐怖游戏</span>
+                            <span class="work-tag">Blueprint</span>
+                            <span class="work-tag">3D</span>
+                        </div>
+                        <div class="work-actions">
+                            <a href="https://www.bilibili.com/video/BV1BGRvBYECC/?share_source=copy_web&vd_source=d6f572497db9bdc7abffec95630c6190" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-bilibili"></i> 观看演示
+                            </a>
+                            <a href="https://github.com/Elmhdmnh/Elmh-website/releases/download/v0.0.1/HorrorGame.zip" class="work-btn secondary" id="downloadHorrorGame" title="《未知之室》游戏下载">
+                                <i class="fas fa-download"></i> 下载 (Windows)
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-            <div class="section sec-contact">
-                <h2 class="section-title"> 联系方式/Contact</h2>
+                <!-- 作品2：千人千面 -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_thousand_faces.jpg" alt="千人千面 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-masks-theater"></i>
+                            <span>暂无预览</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">千人千面 <span class="work-title-sub">A Thousand Faces</span></div>
+                        <p class="work-desc">正在开发中的项目，敬请期待。目前缺少原画资源，后续将逐步完善世界观设定与核心玩法。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">开发中</span>
+                        </div>
+                        <div class="work-status-row">
+                            <span class="work-status wip"><i class="fas fa-hourglass-half"></i> 制作中 — 缺原画</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品3：RAT病毒 -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_ghostlink.png" alt="GhostLink 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-bug"></i>
+                            <span>加载失败</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">GhostLink <span class="work-title-sub">RAT 病毒</span></div>
+                        <p class="work-desc">基于 Python 开发的反向连接远程木马 (RAT)，用于网络安全学习与研究。仅供学习，切勿用于非法用途。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Python</span>
+                            <span class="work-tag">网络安全</span>
+                            <span class="work-tag">Socket</span>
+                        </div>
+                        <div class="work-actions">
+                            <a href="https://github.com/Elmhdmnh/GhostLink" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品4：人脸识别系统 -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_facialrecognition.png" alt="人脸识别系统 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-face-smile"></i>
+                            <span>加载失败</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">人脸识别系统 <span class="work-title-sub">Facial Recognition</span></div>
+                        <p class="work-desc">基于 InsightFace(ArcFace算法) 的本地人脸识别工具，简洁黑白灰图形界面，支持注册人脸与单帧识别，数据完全本地存储，开源可商用。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Python</span>
+                            <span class="work-tag">InsightFace</span>
+                            <span class="work-tag">OpenCV</span>
+                            <span class="work-tag">Tkinter</span>
+                        </div>
+                        <div class="work-actions">
+                            <a href="https://github.com/Elmhdmnh/Facial-recognition" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品5：面部动作控制 -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_facilactioncontrol.jpg" alt="面部动作控制 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-face-grin-beam"></i>
+                            <span>加载失败</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">面部动作控制 <span class="work-title-sub">Facial Action Control</span></div>
+                        <p class="work-desc">基于面部表情与动作捕捉的控制交互项目，通过摄像头实时识别面部动作并转化为控制信号。项目详情与使用说明请查看 GitHub 仓库。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">面部动作</span>
+                            <span class="work-tag">表情识别</span>
+                            <span class="work-tag">动作捕捉</span>
+                        </div>
+                        <div class="work-actions">
+                            <a href="https://github.com/Elmhdmnh/FacialActionControl" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品6：How to Fish Trainer -->
+                <article class="work-card">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_howtofishtrainer.jpg" alt="How to Fish Trainer 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
+                            <i class="fas fa-fish"></i>
+                            <span>加载失败</span>
+                        </div>
+                        <div class="work-preview-overlay"></div>
+                    </div>
+                    <div class="work-info">
+                        <div class="work-title">How to Fish Trainer <span class="work-title-sub">钓鱼游戏辅助工具</span></div>
+                        <p class="work-desc">Steam 钓鱼游戏《How to Fish》的 Trainer（训练器/修改器）辅助工具，为钓鱼玩法提供便捷辅助功能，仅供学习研究使用。项目详情请查看 GitHub 仓库。</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Steam</span>
+                            <span class="work-tag">游戏工具</span>
+                            <span class="work-tag">Trainer</span>
+                        </div>
+                        <div class="work-actions">
+                            <a href="https://github.com/Elmhdmnh/How-to-Fish-Trainer" class="work-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+        <div class="section sec-repos">
+            <div class="section-head">
+                <span class="section-index">04</span>
+                <h2 class="section-title">GitHub 仓库<span class="section-title-en">Repositories</span></h2>
+            </div>
+            <div class="repo-grid" id="repoGrid">
+                <a class="repo-card" href="https://github.com/Elmhdmnh/Elmh-website" target="_blank" rel="noopener noreferrer">
+                    <div class="repo-name"><i class="fab fa-github"></i> Elmh-website</div>
+                    <div class="repo-desc">个人网站源码（本站）</div>
+                    <div class="repo-meta"><span><span class="lang-dot" style="background:#e34c26"></span>HTML</span></div>
+                </a>
+                <a class="repo-card" href="https://github.com/Elmhdmnh/GhostLink" target="_blank" rel="noopener noreferrer">
+                    <div class="repo-name"><i class="fab fa-github"></i> GhostLink</div>
+                    <div class="repo-desc">基于 Python 的反向连接远程木马（RAT），用于网络安全学习与研究</div>
+                    <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
+                </a>
+                <a class="repo-card" href="https://github.com/Elmhdmnh/Facial-recognition" target="_blank" rel="noopener noreferrer">
+                    <div class="repo-name"><i class="fab fa-github"></i> Facial-recognition</div>
+                    <div class="repo-desc">基于 InsightFace 的本地人脸识别系统，简洁 GUI，开源可商用</div>
+                    <div class="repo-meta"><span><span class="lang-dot" style="background:#3572A5"></span>Python</span></div>
+                </a>
+                <a class="repo-card" href="https://github.com/Elmhdmnh/FacialActionControl" target="_blank" rel="noopener noreferrer">
+                    <div class="repo-name"><i class="fab fa-github"></i> FacialActionControl</div>
+                    <div class="repo-desc">基于面部表情与动作捕捉的控制交互项目</div>
+                </a>
+                <a class="repo-card" href="https://github.com/Elmhdmnh/How-to-Fish-Trainer" target="_blank" rel="noopener noreferrer">
+                    <div class="repo-name"><i class="fab fa-github"></i> How-to-Fish-Trainer</div>
+                    <div class="repo-desc">Steam 游戏《How to Fish》的 Trainer 辅助工具</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="section sec-contact">
+            <div class="section-head">
+                <span class="section-index">05</span>
+                <h2 class="section-title">联系方式<span class="section-title-en">Contact</span></h2>
+            </div>
+            <div class="contact-list">
                 <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:1303285187@qq.com">1303285187@qq.com</a></div>
                 <div class="contact-item"><i class="fa-brands fa-github"></i><a href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer">GitHub / Elmhdmnh</a></div>
                 <div class="contact-item"><i class="fa-brands fa-qq"></i><a href="tencent://message/?uin=1303285187&Site=qq&Menu=yes">1303285187</a></div>
                 <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://v.douyin.com/8nRWBoQ378Q/">抖音 A（能解封有偿）</a></div>
                 <div class="contact-item"><i class="fa-brands fa-tiktok"></i><a href="https://www.douyin.com/user/MS4wLjABAAAAvcM3gZmZrnH0mKRgWOutD_hGJ0ujzgempUZNHcEF_mdF0h5bkg4sqq4LqL_NU3Vx">抖音 B / Elmh</a></div>
             </div>
+        </div>
 
-            <div class="section sec-links">
-                <h2 class="section-title"> 友情链接/Links</h2>
+        <div class="section sec-links">
+            <div class="section-head">
+                <span class="section-index">06</span>
+                <h2 class="section-title">友情链接<span class="section-title-en">Links</span></h2>
+            </div>
+            <div class="contact-list">
                 <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://solariix.com/" target="_blank" rel="noopener noreferrer">SolarIIX 官网</a></div>
-                
-                <div class="quote-container"><p>好看的皮囊千篇一律，有趣的灵魂万里挑一。</p></div>
-                
+            </div>
+            <div class="quote-container"><p>好看的皮囊千篇一律，有趣的灵魂万里挑一。</p></div>
+            <div class="contact-list">
                 <div class="contact-item"><i class="fa-solid fa-link"></i><a href="https://von-lycaon.我爱你" target="_blank" rel="noopener noreferrer">陨落基围虾</a></div>
             </div>
+        </div>
 
-            <div class="pay-section">
-                <div class="pay-title"> 赛博乞讨/Cyber Begging</div>
-                <div class="pay-grid">
-                    <div class="pay-item"><img src="微信.jpg" alt="微信收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
-                    <div class="pay-item"><img src="支付宝.jpg" alt="支付宝收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
-                </div>
+        <div class="section pay-section">
+            <div class="section-head">
+                <span class="section-index">07</span>
+                <h2 class="section-title">赛博乞讨<span class="section-title-en">Cyber Begging</span></h2>
             </div>
-        </main>
-    </div>
+            <div class="pay-grid">
+                <div class="pay-item"><img src="微信.jpg" alt="微信收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
+                <div class="pay-item"><img src="支付宝.jpg" alt="支付宝收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
+            </div>
+        </div>
+    </main>
 
     <footer class="site-footer">
         <p>© <span id="year">2025</span> Elmh · Powered by <i class="fas fa-heart"></i></p>
@@ -317,19 +353,6 @@
     <div id="imageModal" class="image-modal">
         <button class="modal-close" id="modalClose" title="关闭">&times;</button>
         <img class="modal-content" id="modalImg" alt="模态框放大的图片">
-    </div>
-
-    <div id="wallpaperPanel" class="wallpaper-panel">
-        <div class="wallpaper-panel-box">
-            <div class="wallpaper-panel-head">
-                <span><i class="fas fa-image"></i> 选择壁纸</span>
-                <div class="wallpaper-panel-actions">
-                    <button id="wallpaperRandom" class="wallpaper-random" title="随机壁纸"><i class="fas fa-shuffle"></i> 随机</button>
-                    <button id="wallpaperPanelClose" class="wallpaper-panel-close" title="关闭">&times;</button>
-                </div>
-            </div>
-            <div class="wallpaper-grid" id="wallpaperGrid"></div>
-        </div>
     </div>
 
     <script src="app.js"></script>
