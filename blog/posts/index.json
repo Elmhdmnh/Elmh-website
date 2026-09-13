@@ -86,5 +86,13 @@
     "category":"life",
     "excerpt":"短篇小说",
     "file":"nightclub.md"
+  },
+  {
+    "slug":"feelingofbacktoschool",
+    "title":"开学两周有感",
+    "date":"2026-09-12",
+    "category":"life",
+    "excerpt":"标题即摘要",
+    "file":"feelingofbacktoschool.md"
   }
 ]
