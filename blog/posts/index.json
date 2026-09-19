@@ -94,5 +94,13 @@
     "category":"life",
     "excerpt":"标题即摘要",
     "file":"feelingofbacktoschool.md"
+  },
+  {
+    "slug":"tolive",
+    "title":"活着",
+    "date":"2026-09-19",
+    "category":"life",
+    "excerpt":"宿舍对谈",
+    "file":"tolive.md"
   }
 ]
