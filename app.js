@@ -32,7 +32,7 @@ document.documentElement.classList.add('js');
 
         if (heroBg) {
             heroBg.style.opacity = String(1 - p);
-            heroBg.style.transform = `translate3d(0, ${y * 0.16}px, 0) scale(1.04)`;
+            heroBg.style.transform = `translate3d(0, ${y * 0.16}px, 0) scale(1.06)`;
         }
         if (heroContent) {
             heroContent.style.opacity = String(Math.max(0, 1 - p * 1.35));
@@ -57,26 +57,38 @@ backToTop.addEventListener('click', () => {
 // --- 页脚年份自动更新 ---
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// --- 打字机效果（顶部座右铭） ---
+(function() {
+    const motto = document.querySelector('.motto');
+    if (!motto) return;
+    const fullText = motto.textContent.trim();
+    motto.textContent = '';
+    let i = 0;
+    const speed = 100;
+    function type() {
+        if (i <= fullText.length) {
+            motto.textContent = fullText.slice(0, i);
+            i++;
+            setTimeout(type, i > fullText.length ? 1 : speed);
+        }
+    }
+    setTimeout(type, 800);
+})();
+
 // --- 滚动入场动画（含轻微错峰） ---
-const sections = document.querySelectorAll('.section');
-sections.forEach((s, i) => {
+document.querySelectorAll('.section').forEach((s, i) => {
     s.classList.add('reveal');
     s.style.transitionDelay = `${Math.min(i * 70, 280)}ms`;
 });
-// 不支持 IntersectionObserver 时直接全部显示，避免内容一直不可见
-if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.08 });
-    sections.forEach(s => revealObserver.observe(s));
-} else {
-    sections.forEach(s => s.classList.add('in-view'));
-}
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.08 });
+document.querySelectorAll('.section').forEach(s => revealObserver.observe(s));
 
 // --- 阅读进度条 ---
 const readingProgress = document.getElementById('readingProgress');

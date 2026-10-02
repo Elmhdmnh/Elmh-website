@@ -8,11 +8,9 @@
     <link rel="icon" type="image/jpeg" href="me.jpg">
     <meta name="description" content="Elmh 的个人网站，包含虚幻引擎作品、OC设定、游戏开发与个人项目展示。">
     <meta name="keywords" content="Elmh, Unreal Engine, 虚幻引擎, 游戏开发, IT, 千人千面, Unknown Room, 未知之室,Elm Hawke, 榎 鷹夜">
-    <meta name="theme-color" content="#fbfaf8">
-    <meta name="color-scheme" content="light">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta property="og:title" content="Elmh">
     <meta property="og:description" content="虚幻引擎开发者 / 游戏爱好者">
@@ -52,6 +50,7 @@
     <header class="hero" id="hero">
         <div class="hero-bg" id="heroBg"></div>
         <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
         <div class="hero-content" id="heroContent">
             <p class="hero-eyebrow"><span></span>UNREAL ENGINE · GAME DEV · IT<span></span></p>
             <div class="hero-avatar"><img src="me.jpg" alt="Elmh的头像" onclick="openImageModal(this.src)"></div>
@@ -76,7 +75,12 @@
                 <span class="section-index">01</span>
                 <h2 class="section-title">关于我<span class="section-title-en">About Me</span></h2>
             </div>
-            <p class="lead">我是 Elmh，一位 2010 年出生的高中学生，就读于山西，是 SolarIIX 工作室和苍穹无限工作室的成员，是 Unreal Engine 开发者与 IT 爱好者，热爱游戏开发、计算机图形学以及 SoulsGames。</p>
+            <p class="lead">
+                我是 Elmh，一位 2010 年出生的高中学生，就读于山西，</br>
+                是SolarIIX工作室和苍穹无限工作室的成员，</br>
+                是 Unreal Engine 开发者与 IT 爱好者，</br>
+                热爱游戏开发、计算机图形学以及 SoulsGames。
+            </p>
             <p class="about-text">这里主要展示我的个人作品、开发项目与兴趣内容。</p>
             <div class="tags-container">
                 <span class="tag">虚幻引擎</span>
@@ -88,13 +92,13 @@
             <img class="github-snake" src="https://raw.githubusercontent.com/Sunwuyuan/Sunwuyuan/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake" loading="lazy">
         </div>
 
-        <div class="section sec-oc" id="oc">
+        <div class="section sec-oc">
             <div class="section-head">
                 <span class="section-index">02</span>
                 <h2 class="section-title">OC / 自设<span class="section-title-en">Original Character</span></h2>
             </div>
             <div class="oc-layout">
-                <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC自设" loading="lazy" onclick="openImageModal(this.src)"></div>
+                <div class="oc-wrapper"><img class="oc-image" src="OC.png" alt="OC自设" onclick="openImageModal(this.src)"></div>
                 <div class="oc-info">
                     <div class="oc-name">Elm Hawke</div>
                     <div class="oc-name-en">(埃尔姆·霍克)</div>
@@ -103,7 +107,7 @@
             </div>
         </div>
 
-        <div class="section sec-works" id="works">
+        <div class="section sec-works">
             <div class="section-head">
                 <span class="section-index">03</span>
                 <h2 class="section-title">我的作品<span class="section-title-en">Development</span></h2>
@@ -113,7 +117,7 @@
                 <!-- 作品1：未知之室 -->
                 <article class="work-card">
                     <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                        <img src="works_unknown_room.png" alt="未知之室 预览图" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <img src="works_unknown_room.png" alt="未知之室 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
                         <div class="work-preview-placeholder">
                             <i class="fas fa-ghost"></i>
                             <span>加载失败</span>
@@ -140,11 +144,11 @@
                     </div>
                 </article>
 
-                <!-- 作品2：千人千面（原画资源就绪后，把下面注释里的 <img> 放回来即可） -->
+                <!-- 作品2：千人千面 -->
                 <article class="work-card">
-                    <div class="work-preview" title="暂无预览">
-                        <!-- <img src="works_thousand_faces.jpg" alt="千人千面 预览图" loading="lazy"> -->
-                        <div class="work-preview-placeholder show">
+                    <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
+                        <img src="works_thousand_faces.jpg" alt="千人千面 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <div class="work-preview-placeholder">
                             <i class="fas fa-masks-theater"></i>
                             <span>暂无预览</span>
                         </div>
@@ -165,7 +169,7 @@
                 <!-- 作品3：RAT病毒 -->
                 <article class="work-card">
                     <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                        <img src="works_ghostlink.png" alt="GhostLink 预览图" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <img src="works_ghostlink.png" alt="GhostLink 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
                         <div class="work-preview-placeholder">
                             <i class="fas fa-bug"></i>
                             <span>加载失败</span>
@@ -191,7 +195,7 @@
                 <!-- 作品4：人脸识别系统 -->
                 <article class="work-card">
                     <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                        <img src="works_facialrecognition.png" alt="人脸识别系统 预览图" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <img src="works_facialrecognition.png" alt="人脸识别系统 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
                         <div class="work-preview-placeholder">
                             <i class="fas fa-face-smile"></i>
                             <span>加载失败</span>
@@ -218,7 +222,7 @@
                 <!-- 作品5：面部动作控制 -->
                 <article class="work-card">
                     <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                        <img src="works_facilactioncontrol.jpg" alt="面部动作控制 预览图" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <img src="works_facilactioncontrol.jpg" alt="面部动作控制 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
                         <div class="work-preview-placeholder">
                             <i class="fas fa-face-grin-beam"></i>
                             <span>加载失败</span>
@@ -244,7 +248,7 @@
                 <!-- 作品6：How to Fish Trainer -->
                 <article class="work-card">
                     <div class="work-preview" onclick="openImageModal(this.querySelector('img')?.src || '')" title="点击查看大图">
-                        <img src="works_howtofishtrainer.jpg" alt="How to Fish Trainer 预览图" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
+                        <img src="works_howtofishtrainer.jpg" alt="How to Fish Trainer 预览图" onerror="this.style.display='none';this.nextElementSibling.classList.add('show');">
                         <div class="work-preview-placeholder">
                             <i class="fas fa-fish"></i>
                             <span>加载失败</span>
@@ -270,7 +274,7 @@
             </div>
         </div>
 
-        <div class="section sec-repos" id="repos">
+        <div class="section sec-repos">
             <div class="section-head">
                 <span class="section-index">04</span>
                 <h2 class="section-title">GitHub 仓库<span class="section-title-en">Repositories</span></h2>
@@ -304,7 +308,7 @@
             </div>
         </div>
 
-        <div class="section sec-contact" id="contact">
+        <div class="section sec-contact">
             <div class="section-head">
                 <span class="section-index">05</span>
                 <h2 class="section-title">联系方式<span class="section-title-en">Contact</span></h2>
@@ -318,7 +322,7 @@
             </div>
         </div>
 
-        <div class="section sec-links" id="links">
+        <div class="section sec-links">
             <div class="section-head">
                 <span class="section-index">06</span>
                 <h2 class="section-title">友情链接<span class="section-title-en">Links</span></h2>
@@ -334,14 +338,14 @@
             </div>
         </div>
 
-        <div class="section pay-section" id="pay">
+        <div class="section pay-section">
             <div class="section-head">
                 <span class="section-index">07</span>
                 <h2 class="section-title">赛博乞讨<span class="section-title-en">Cyber Begging</span></h2>
             </div>
             <div class="pay-grid">
-                <div class="pay-item"><img src="微信.jpg" alt="微信收款码" loading="lazy" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
-                <div class="pay-item"><img src="支付宝.jpg" alt="支付宝收款码" loading="lazy" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
+                <div class="pay-item"><img src="微信.jpg" alt="微信收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-weixin"></i> 微信</p></div>
+                <div class="pay-item"><img src="支付宝.jpg" alt="支付宝收款码" onclick="openImageModal(this.src)"><p><i class="fab fa-alipay"></i> 支付宝</p></div>
             </div>
         </div>
     </main>

@@ -14,7 +14,6 @@
 import json
 import html
 import os
-import re
 import sys
 from datetime import date
 
@@ -40,15 +39,6 @@ def write(path, content):
         f.write(content)
 
 
-def strip_leading_title(body, title):
-    """正文若以与页面标题相同的一级标题开头,去掉它,避免标题重复显示。"""
-    m = re.match(r'\s*<h1[^>]*>(.*?)</h1>\s*', body, re.S)
-    if not m:
-        return body
-    inner = html.unescape(re.sub(r'<[^>]+>', '', m.group(1))).strip()
-    return body[m.end():] if inner == title.strip() else body
-
-
 def main():
     changed = []
 
@@ -61,7 +51,6 @@ def main():
         slug = p['slug']
         md_text = read(os.path.join(ROOT, 'blog/posts', p['file']))
         body = markdown.markdown(md_text, extensions=['fenced_code', 'tables', 'sane_lists'])
-        body = strip_leading_title(body, p['title'])
         out = (post_tpl
                .replace('{{TITLE}}', html.escape(p['title']))
                .replace('{{DESC}}', html.escape(p.get('excerpt', '')))
@@ -83,10 +72,8 @@ def main():
         post_tpl_items.append(
             '            <a class="post-item" data-cat="{cat}" href="blog/{slug}.html">\n'
             '                <div class="post-date">{date} · {cat_name}</div>\n'
-            '                <div class="post-main">\n'
-            '                    <div class="post-title">{title}</div>\n'
-            '                    <div class="post-excerpt">{excerpt}</div>\n'
-            '                </div>\n'
+            '                <div class="post-title">{title}</div>\n'
+            '                <div class="post-excerpt">{excerpt}</div>\n'
             '            </a>'.format(
                 cat=p['category'], slug=p['slug'], date=p['date'], cat_name=cat_name,
                 title=html.escape(p['title']), excerpt=html.escape(p.get('excerpt', ''))))

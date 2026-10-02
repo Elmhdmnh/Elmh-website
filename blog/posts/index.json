@@ -24,12 +24,36 @@
     "file": "ue5-first-steps.md"
   },
   {
+    "slug": "what-is-man",
+    "title": "什么是男人该有的样子？",
+    "date": "2026-08-06",
+    "category": "life",
+    "excerpt": "我的审美。",
+    "file": "what-is-man.md"
+  },
+  {
     "slug":"world",
     "title":"世界属于凯撒，女孩属于男孩",
     "date":"2026-08-07",
     "category":"life",
     "excerpt":"有感而发",
     "file":"world.md"
+  },
+  {
+    "slug":"myRAT",
+    "title":"我的RAT",
+    "date":"2026-08-08",
+    "category":"tech",
+    "excerpt":"我写病毒的历史",
+    "file":"myRAT.md"
+  },
+  {
+    "slug":"myValues",
+    "title":"我的价值观",
+    "date":"2026-08-14",
+    "category":"life",
+    "excerpt":"我的价值观",
+    "file":"myValues.md"
   },
   {
     "slug":"Phantom-Blade-Zero",
@@ -54,6 +78,14 @@
     "category":"life",
     "excerpt":"日记",
     "file":"diary20260823.md"
+  },
+  {
+    "slug":"nightclub",
+    "title":"眼神（短篇小说）",
+    "date":"2026-08-24",
+    "category":"life",
+    "excerpt":"短篇小说",
+    "file":"nightclub.md"
   },
   {
     "slug":"feelingofbacktoschool",
