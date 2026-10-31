@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动 · Elmh 的博客</title>
+    <link rel="icon" type="image/jpeg" href="../me.jpg">
+    <link rel="stylesheet" href="blog-style.css">
+    <meta name="description" content="自定义模型没有 UV，只能用三平面；模型一移动纹理就在表面滑。记录一下原因和最终连线。">
+    <meta name="keywords" content="Elmh, 博客, 技术笔记">
+    <link rel="canonical" href="https://elmh.top/blog/ue5-triplanar-texture-sliding.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动">
+    <meta property="og:description" content="自定义模型没有 UV，只能用三平面；模型一移动纹理就在表面滑。记录一下原因和最终连线。">
+    <meta property="og:url" content="https://elmh.top/blog/ue5-triplanar-texture-sliding.html">
+    <meta property="og:site_name" content="Elmh 的博客">
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动",
+    "datePublished": "2026-10-31",
+    "dateModified": "2026-10-31",
+    "author": {"@type": "Person", "name": "Elmh", "url": "https://elmh.top"},
+    "mainEntityOfPage": "https://elmh.top/blog/ue5-triplanar-texture-sliding.html"
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a class="logo" href="../blog.html">Elmh 的博客</a>
+            <nav class="nav">
+                <a href="../index.html">主页</a>
+                <a href="../blog.html">博客</a>
+            </nav>
+        </header>
+
+        <article>
+            <header class="post-header">
+                <h1>UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动</h1>
+                <div class="post-meta">
+                    <span>2026-10-31</span>
+                    <span>技术笔记</span>
+                </div>
+            </header>
+            <div class="post-body">
+<h1>UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动</h1>
+<blockquote>
+<p>模型没有 UV，只能用 WorldAlignedTexture 做三平面，结果一动就滑。</p>
+</blockquote>
+<p>最近给一个自定义模型做石头材质。模型是从外部导进来的，没有像样的 UV 展开，普通的 <code>TextureSample</code> 用不了，于是上了三平面（Triplanar）：用 <code>WorldAlignedTexture</code> 和 <code>WorldAlignedNormal</code> 两个节点，靠位置和法线自动生成三个方向的投影，接缝和拉伸确实都没有。</p>
+<p>但模型一移动，纹理就在表面滑。</p>
+<h2>为什么会滑</h2>
+<p><code>WorldAlignedTexture</code> / <code>WorldAlignedNormal</code> 是<strong>世界对齐</strong>的，它们默认拿 <strong>Absolute World Position（绝对世界位置）</strong> 当采样坐标。相当于把纹理「投影」在固定的世界里：物体从那团纹理里穿过去，表面看起来就是纹理在动。</p>
+<p>世界对齐本来就是给地形、建筑、大块岩石这种不动的场景物件用的。会动的物体，采样坐标要换成<strong>物体局部空间</strong>——物体移动时世界坐标一直在变，局部坐标则始终相对物体固定。</p>
+<h2>改法：把采样坐标换成局部空间</h2>
+<p>思路一句话：把喂给两个 WorldAligned 节点的位置，从世界坐标换成局部坐标。</p>
+<pre><code class="language-text">绝对世界位置 ──→ TransformPosition（源=绝对场景空间，目标=本地空间）─┬→ WorldAlignedTexture · WorldPosition
+                                                              └→ WorldAlignedNormal · WorldPosition
+
+顶点法线 ──→ TransformVector（源=世界空间，目标=本地空间）──→ WorldAlignedNormal · Normal
+</code></pre>
+<p>四个容易踩的点：</p>
+<ol>
+<li><strong>位置要用 <code>TransformPosition</code>，不是 <code>TransformVector</code></strong>。TransformVector 只能转方向，拿它转位置坐标，坐标会乱掉，纹理会变成一片纯色。</li>
+<li><strong>两个 WorldAligned 节点的 <code>WorldPosition</code> 都要接</strong>。只接了颜色那个，法线还是会滑——它空着就默认用世界位置。</li>
+<li><code>WorldAlignedNormal</code> 的 <strong><code>WorldSpace (SB)</code> 是布尔开关</strong>，控制输出的是世界空间还是切线空间法线，<strong>不是法线输入</strong>。几何法线接的是 <code>Normal (V3)</code>。</li>
+<li>颜色和法线必须共用<strong>同一个</strong> <code>TransformPosition</code> 的输出，否则两套投影对不上。</li>
+</ol>
+<h2>调纹理大小</h2>
+<p>三平面节点没有 UV 输入，<code>TexCoord</code> 没地方接，调大小改 <strong><code>TextureSize (V3)</code></strong>：</p>
+<ul>
+<li>数值调大 → 纹理变大（重复变少）</li>
+<li>数值调小 → 纹理变密（重复变多）</li>
+</ul>
+<p><code>WorldAlignedTexture</code> 和 <code>WorldAlignedNormal</code> 的 TextureSize 要填一样的值，不然颜色和凹凸会错位。想随时调的话，接一个 <code>ScalarParameter</code>。</p>
+<h2>验证</h2>
+<ul>
+<li>平移模型：纹理贴住不动</li>
+<li>旋转模型：颜色和凹凸跟着一起转，不闪</li>
+</ul>
+<h2>小结</h2>
+<p>三平面适合没有 UV 的模型，但它按世界空间投影，用在会动的物体上就得手动转成局部空间。另外 <code>WorldSpace</code> 那个布尔很容易被当成法线插槽——它根本接不了 V3。</p>
+<hr />
+<p>参考：</p>
+<ul>
+<li><a href="https://forums.unrealengine.com/t/world-aligned-normal-textures-not-working/235175/4">Epic 论坛：WorldAlignedNormal 的 WorldSpace 说明</a></li>
+<li><a href="https://80.lv/articles/ue5-triplanar-deep-dive-from-worldalignedtexture-to-high-quality-normals-part-1">UE5 Triplanar Deep Dive</a></li>
+</ul>
+            </div>
+            <a class="post-back" href="../blog.html">← 返回列表</a>
+        </article>
+
+        <footer class="site-footer">
+            <span>© 2026 Elmh</span>
+            <a href="https://github.com/Elmhdmnh" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>
