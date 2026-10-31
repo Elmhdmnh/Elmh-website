@@ -78,5 +78,13 @@
     "category":"tech",
     "excerpt":"自定义模型没有 UV，只能用三平面；模型一移动纹理就在表面滑。记录一下原因和最终连线。",
     "file":"ue5-triplanar-texture-sliding.md"
+  },
+  {
+    "slug":"ifthatisme",
+    "title":"如果是我",
+    "date":"2026-10-31",
+    "category":"life",
+    "excerpt":"如果是我，我会怎么做？",
+    "file":"ifthatisme.md"
   }
 ]
