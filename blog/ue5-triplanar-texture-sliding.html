@@ -46,10 +46,11 @@
             </header>
             <div class="post-body">
 <h1>UE5 材质笔记：三平面纹理为什么会在移动的模型表面滑动</h1>
+<p>文章是AI按照对话总结的，我只有略微改动</p>
 <blockquote>
 <p>模型没有 UV，只能用 WorldAlignedTexture 做三平面，结果一动就滑。</p>
 </blockquote>
-<p>最近给一个自定义模型做石头材质。模型是从外部导进来的，没有像样的 UV 展开，普通的 <code>TextureSample</code> 用不了，于是上了三平面（Triplanar）：用 <code>WorldAlignedTexture</code> 和 <code>WorldAlignedNormal</code> 两个节点，靠位置和法线自动生成三个方向的投影，接缝和拉伸确实都没有。</p>
+<p>最近给一个自定义模型做粑粑材质。模型是我拿max手搓的，没有像样的 UV 展开，普通的 <code>TextureSample</code> 用不了，于是上了三平面（Triplanar）：用 <code>WorldAlignedTexture</code> 和 <code>WorldAlignedNormal</code> 两个节点，靠位置和法线自动生成三个方向的投影，接缝和拉伸确实都没有。</p>
 <p>但模型一移动，纹理就在表面滑。</p>
 <h2>为什么会滑</h2>
 <p><code>WorldAlignedTexture</code> / <code>WorldAlignedNormal</code> 是<strong>世界对齐</strong>的，它们默认拿 <strong>Absolute World Position（绝对世界位置）</strong> 当采样坐标。相当于把纹理「投影」在固定的世界里：物体从那团纹理里穿过去，表面看起来就是纹理在动。</p>
